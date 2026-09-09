@@ -1,0 +1,622 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Leadership | SSSA — University of Eldoret</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+    /* =========================
+       PUBLIC LEADERSHIP
+    ========================= */
+
+    .leadership-loading,
+    .leadership-error,
+    .leadership-empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 50px 20px;
+        color: #667085;
+    }
+
+    .leadership-error {
+        color: #c62828;
+    }
+
+    .public-leader-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .public-leader-placeholder {
+        font-size: 55px;
+    }
+</style>
+
+</head><body><!-- ================= HEADER ================= -->
+<header class="site-header">
+
+    <div class="container header-content">
+
+        <a href="index.html" class="logo">
+            <div class="logo-placeholder">SSSA</div>
+
+            <div class="logo-text">
+                <strong>SSSA</strong>
+                <span>University of Eldoret</span>
+            </div>
+        </a>
+
+        <button class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </button>
+
+        <nav class="nav-links">
+
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="departments.html">Departments</a>
+            <a href="association.html">Association</a>
+            <a href="leadership.html" class="active">Leadership</a>
+            <a href="events.html">Events</a>
+            <a href="contact.html">Contact</a>
+
+            <a href="registration.html" class="nav-register">
+                Register
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- ================= PAGE HERO ================= -->
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <span>STUDENT LEADERSHIP</span>
+
+        <h1>
+            Meet Our Leadership
+        </h1>
+
+        <p>
+            Meet the students serving and representing the
+            School of Science Students Association.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LEADERSHIP INTRO ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>SSSA LEADERSHIP</span>
+
+            <h2>
+                Serving Students Through Leadership
+            </h2>
+
+            <p>
+                Our leaders are committed to representing students,
+                promoting unity and supporting academic and
+                community development.
+            </p>
+
+        </div>
+
+
+        <!-- ================= DYNAMIC LEADERS ================= -->
+
+        <div
+            class="leadership-grid"
+            id="leadershipGrid"
+        >
+
+            <div class="leadership-loading">
+                Loading SSSA leadership...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LEADERSHIP VALUES ================= -->
+
+<section class="about-values">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>LEADERSHIP PRINCIPLES</span>
+
+            <h2>
+                Leading With Purpose
+            </h2>
+
+            <p>
+                SSSA leadership is guided by service, accountability,
+                teamwork and commitment to students.
+            </p>
+
+        </div>
+
+
+        <div class="leadership-values-grid">
+
+            <div class="leadership-value">
+
+                <div class="value-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Service
+                </h3>
+
+                <p>
+                    Leadership begins with a commitment to serve
+                    students and the wider science community.
+                </p>
+
+            </div>
+
+
+            <div class="leadership-value">
+
+                <div class="value-icon">
+                    ⚖️
+                </div>
+
+                <h3>
+                    Accountability
+                </h3>
+
+                <p>
+                    Leaders should act responsibly and remain
+                    accountable to the students they represent.
+                </p>
+
+            </div>
+
+
+            <div class="leadership-value">
+
+                <div class="value-icon">
+                    💡
+                </div>
+
+                <h3>
+                    Innovation
+                </h3>
+
+                <p>
+                    We encourage leaders to develop new ideas and
+                    practical solutions for student needs.
+                </p>
+
+            </div>
+
+
+            <div class="leadership-value">
+
+                <div class="value-icon">
+                    👥
+                </div>
+
+                <h3>
+                    Teamwork
+                </h3>
+
+                <p>
+                    Strong leadership depends on cooperation,
+                    communication and collective responsibility.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta section">
+
+    <div class="container cta-content">
+
+        <div>
+
+            <span>
+                BE PART OF THE COMMUNITY
+            </span>
+
+            <h2>
+                Your Voice. Your Leadership.
+            </h2>
+
+            <p>
+                Register as a member and participate in the
+                development of SSSA.
+            </p>
+
+        </div>
+
+        <a
+            href="registration.html"
+            class="btn btn-primary"
+        >
+            Register Now — KSh 300
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+        <div>
+
+            <h3>SSSA</h3>
+
+            <p>
+                School of Science Students Association
+                <br>
+                University of Eldoret
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4>Quick Links</h4>
+
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="departments.html">Departments</a>
+            <a href="association.html">Association</a>
+            <a href="events.html">Events</a>
+
+        </div>
+
+
+        <div>
+
+            <h4>Contact</h4>
+
+            <p>
+                University of Eldoret
+            </p>
+
+            <p>
+                School of Science
+            </p>
+
+            <a href="contact.html">
+                Contact SSSA →
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © <span id="year"></span>
+            School of Science Students Association.
+            University of Eldoret.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= SUPABASE ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
+
+<!-- ================= MAIN JS ================= -->
+
+<script src="js/main.js"></script>
+
+
+<!-- ================= PUBLIC LEADERSHIP JS ================= -->
+
+<script>
+
+    /* =========================================
+       PUBLIC SSSA LEADERSHIP
+       Loads leaders from Supabase
+    ========================================= */
+
+    async function loadPublicLeaders() {
+
+        const grid =
+            document.getElementById("leadershipGrid");
+
+        if (!grid) {
+            return;
+        }
+
+
+        /* Loading message */
+
+        grid.innerHTML = `
+            <div class="leadership-loading">
+                Loading SSSA leadership...
+            </div>
+        `;
+
+
+        try {
+
+            /* =========================
+               GET LEADERS
+            ========================= */
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+
+                .from("leaders")
+
+                .select(`
+                    id,
+                    name,
+                    position,
+                    photo_url,
+                    bio,
+                    display_order,
+                    created_at
+                `)
+
+                .order("display_order", {
+                    ascending: true
+                })
+
+                .order("created_at", {
+                    ascending: true
+                });
+
+
+            /* =========================
+               DATABASE ERROR
+            ========================= */
+
+            if (error) {
+
+                console.error(
+                    "Public leadership error:",
+                    error
+                );
+
+                grid.innerHTML = `
+                    <div class="leadership-error">
+                        <h3>
+                            Unable to load leadership
+                        </h3>
+
+                        <p>
+                            Please try refreshing the page.
+                        </p>
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            /* =========================
+               NO LEADERS
+            ========================= */
+
+            if (!data || data.length === 0) {
+
+                grid.innerHTML = `
+                    <div class="leadership-empty">
+
+                        <div style="font-size:50px;">
+                            👥
+                        </div>
+
+                        <h3>
+                            Leadership information coming soon
+                        </h3>
+
+                        <p>
+                            SSSA leadership details will appear here.
+                        </p>
+
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            /* =========================
+               CLEAR LOADING
+            ========================= */
+
+            grid.innerHTML = "";
+
+
+            /* =========================
+               DISPLAY LEADERS
+            ========================= */
+
+            data.forEach(function(leader) {
+
+                const card =
+                    document.createElement("article");
+
+                card.className =
+                    "leader-card";
+
+
+                /* =========================
+                   PHOTO
+                ========================= */
+
+                let photoHTML = `
+                    <div class="leader-placeholder">
+                        👤
+                    </div>
+                `;
+
+
+                if (leader.photo_url) {
+
+                    photoHTML = `
+                        <img
+                            class="public-leader-photo"
+                            src="${escapePublicHTML(leader.photo_url)}"
+                            alt="${escapePublicHTML(leader.name || "SSSA Leader")}"
+                            loading="lazy"
+                        >
+                    `;
+
+                }
+
+
+                /* =========================
+                   CARD
+                ========================= */
+
+                card.innerHTML = `
+
+                    <div class="leader-photo">
+                        ${photoHTML}
+                    </div>
+
+                    <div class="leader-info">
+
+                        <span class="leader-position">
+                            ${escapePublicHTML(
+                                leader.position || "SSSA Executive"
+                            )}
+                        </span>
+
+                        <h3>
+                            ${escapePublicHTML(
+                                leader.name || "SSSA Leader"
+                            )}
+                        </h3>
+
+                        <p>
+                            ${escapePublicHTML(
+                                leader.bio || "SSSA Executive"
+                            )}
+                        </p>
+
+                    </div>
+
+                `;
+
+
+                grid.appendChild(card);
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Unexpected leadership error:",
+                error
+            );
+
+
+            grid.innerHTML = `
+                <div class="leadership-error">
+
+                    <h3>
+                        Unable to load leadership
+                    </h3>
+
+                    <p>
+                        Please try refreshing the page.
+                    </p>
+
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================= */
+
+    function escapePublicHTML(text) {
+
+        if (
+            text === null ||
+            text === undefined
+        ) {
+            return "";
+        }
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            String(text);
+
+        return div.innerHTML;
+
+    }
+
+
+    /* =========================
+       INITIAL LOAD
+    ========================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            loadPublicLeaders();
+
+        }
+    );
+
+</script>
+
+</body>
+</html>

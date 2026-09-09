@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Announcements | SSSA - University of Eldoret</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* =========================
+           ANNOUNCEMENTS PAGE
+        ========================= */
+
+        .announcement-section {
+            padding: 60px 0;
+            background: #f8fbff;
+        }
+
+        .announcement-list {
+            display: grid;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .announcement-card {
+            background: #ffffff;
+            border: 1px solid #e4ebf2;
+            border-radius: 14px;
+            padding: 28px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .announcement-card h2 {
+            margin: 0 0 10px;
+            color: #064789;
+            font-size: 24px;
+        }
+
+        .announcement-date {
+            color: #667085;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .announcement-content {
+            color: #334e68;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .announcement-empty {
+            text-align: center;
+            padding: 60px 20px;
+            background: #ffffff;
+            border: 1px solid #e4ebf2;
+            border-radius: 14px;
+            color: #667085;
+        }
+
+        .announcement-loading {
+            text-align: center;
+            padding: 50px 20px;
+            color: #667085;
+        }
+
+        .announcement-error {
+            display: none;
+            background: #fff1f2;
+            border: 1px solid #fecdd3;
+            color: #b42318;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .announcement-card {
+                padding: 20px;
+            }
+
+            .announcement-card h2 {
+                font-size: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="site-header">
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+                <div class="logo-placeholder">SSSA</div>
+
+                <div class="logo-text">
+                    <strong>SSSA</strong>
+                    <span>University of Eldoret</span>
+                </div>
+            </a>
+
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+            <nav class="nav-links">
+
+                <a href="index.html">Home</a>
+
+                <a href="about.html">About Us</a>
+
+                <a href="departments.html">Departments</a>
+
+                <a href="association.html">Association</a>
+
+                <a href="leadership.html">Leadership</a>
+
+                <a href="events.html">Events</a>
+
+                <a href="announcements.html" class="active">
+                    Announcements
+                </a>
+
+                <a href="registration.html">Registration</a>
+
+                <a href="contact.html">Contact</a>
+
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- =========================
+         PAGE HERO
+    ========================== -->
+
+    <section class="page-hero">
+
+        <div class="container">
+
+            <span>SSSA NEWS</span>
+
+            <h1>Announcements</h1>
+
+            <p>
+                Stay updated with the latest announcements,
+                notices and important information from SSSA.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ANNOUNCEMENTS
+    ========================== -->
+
+    <section class="announcement-section">
+
+        <div class="container">
+
+            <div id="announcementError" class="announcement-error"></div>
+
+            <div id="announcementLoading" class="announcement-loading">
+                Loading announcements...
+            </div>
+
+            <div
+                id="announcementList"
+                class="announcement-list"
+                style="display: none;">
+            </div>
+
+            <div
+                id="announcementEmpty"
+                class="announcement-empty"
+                style="display: none;">
+
+                <h2>No announcements yet</h2>
+
+                <p>
+                    There are currently no published announcements.
+                    Please check again later.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-grid">
+
+            <div>
+                <h3>SSSA</h3>
+
+                <p>
+                    School of Science Students Association
+                    at the University of Eldoret.
+                </p>
+            </div>
+
+            <div>
+                <h3>Quick Links</h3>
+
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="leadership.html">Leadership</a>
+                <a href="events.html">Events</a>
+                <a href="announcements.html">Announcements</a>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+
+                <p>University of Eldoret</p>
+                <p>School of Science</p>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom">
+
+            <p>
+                © 2026 SSSA | University of Eldoret.
+                All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase.js"></script>
+
+    <script src="js/public-announcements.js"></script>
+
+    <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Announcements | SSSA Admin</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8fc;
+            color: #102a43;
+        }
+
+        button,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #064789;
+            color: white;
+            padding: 25px 18px;
+            z-index: 1000;
+        }
+
+        .sidebar-logo {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.18);
+        }
+
+        .logo-box {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            background: white;
+            color: #064789;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+        }
+
+        .sidebar-logo p {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .menu {
+            margin-top: 25px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            padding: 13px 14px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout button {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: white;
+            padding: 11px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .logout button:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e4ebf2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .topbar h1 {
+            font-size: 22px;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #dcecff;
+            color: #064789;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .page-intro {
+            margin-bottom: 25px;
+        }
+
+        .page-intro h2 {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .page-intro p {
+            color: #667085;
+            font-size: 14px;
+        }
+
+        /* =========================
+           LAYOUT
+        ========================= */
+
+        .announcement-layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .form-card {
+            background: white;
+            border: 1px solid #e4ebf2;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .form-card h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #d5dee8;
+            border-radius: 7px;
+            outline: none;
+            background: white;
+        }
+
+        .form-group textarea {
+            min-height: 170px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #064789;
+        }
+
+        .publish-option {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .publish-option input {
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 7px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #064789;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #05386b;
+        }
+
+        .btn-secondary {
+            background: #eef2f6;
+            color: #344054;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-edit {
+            background: #eef6ff;
+            color: #064789;
+        }
+
+        .btn-delete {
+            background: #feeceb;
+            color: #c62828;
+        }
+
+        .btn-publish {
+            background: #eaf7ee;
+            color: #18794e;
+        }
+
+        .btn-draft {
+            background: #fff4e5;
+            color: #b54708;
+        }
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error-box {
+            display: none;
+            background: #feeceb;
+            color: #c62828;
+            border: 1px solid #f5c2c0;
+            padding: 12px;
+            border-radius: 7px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        /* =========================
+           LIST
+        ========================= */
+
+        .list-card {
+            background: white;
+            border: 1px solid #e4ebf2;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .list-header {
+            padding: 20px;
+            border-bottom: 1px solid #e4ebf2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-header h3 {
+            font-size: 17px;
+        }
+
+        .list-header span {
+            color: #667085;
+            font-size: 13px;
+        }
+
+        .announcement-list {
+            padding: 20px;
+        }
+
+        .announcement-item {
+            border: 1px solid #e4ebf2;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .announcement-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .announcement-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .announcement-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #102a43;
+        }
+
+        .announcement-message {
+            color: #667085;
+            line-height: 1.6;
+            font-size: 14px;
+            white-space: pre-line;
+            margin-bottom: 15px;
+        }
+
+        .announcement-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .badge-published {
+            background: #eaf7ee;
+            color: #18794e;
+        }
+
+        .badge-draft {
+            background: #fff4e5;
+            color: #b54708;
+        }
+
+        .date-badge {
+            background: #f2f4f7;
+            color: #667085;
+        }
+
+        .announcement-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 15px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 55px 20px;
+            color: #667085;
+        }
+
+        .empty-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 45px 20px;
+            color: #667085;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        .menu-toggle {
+            display: none;
+            border: none;
+            background: #064789;
+            color: white;
+            font-size: 22px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 900;
+        }
+
+        @media (max-width: 1000px) {
+
+            .announcement-layout {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .overlay.active {
+                display: block;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .topbar h1 {
+                font-size: 18px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .content {
+                padding: 15px;
+            }
+
+            .page-intro h2 {
+                font-size: 21px;
+            }
+
+            .admin-profile span {
+                display: none;
+            }
+
+            .announcement-top {
+                flex-direction: column;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="logo-box">
+            SSSA
+        </div>
+
+        <h2>SSSA Admin Panel</h2>
+
+        <p>University of Eldoret</p>
+
+    </div>
+
+
+    <nav class="menu">
+
+        <a href="dashboard.html">
+            📊 Dashboard
+        </a>
+
+        <a href="leadership.html">
+            👥 Leadership
+        </a>
+
+        <a href="events.html">
+            📅 Events
+        </a>
+
+        <a href="announcements.html" class="active">
+            📢 Announcements
+        </a>
+
+        <a href="registrations.html">
+            📝 Registrations
+        </a>
+
+        <a href="../index.html" target="_blank">
+            🌐 View Website
+        </a>
+
+    </nav>
+
+
+    <div class="logout">
+
+        <button onclick="logout()">
+            🚪 Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+<div
+    class="overlay"
+    id="overlay"
+    onclick="closeSidebar()">
+</div>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <header class="topbar">
+
+        <div
+            style="display:flex; align-items:center; gap:12px;">
+
+            <button
+                class="menu-toggle"
+                onclick="openSidebar()">
+
+                ☰
+
+            </button>
+
+            <h1>
+                Announcements
+            </h1>
+
+        </div>
+
+
+        <div class="admin-profile">
+
+            <span>
+                Administrator
+            </span>
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <section class="content">
+
+
+        <div class="page-intro">
+
+            <h2>
+                Manage SSSA Announcements
+            </h2>
+
+            <p>
+                Create and publish important information for
+                School of Science students.
+            </p>
+
+        </div>
+
+
+        <div
+            class="error-box"
+            id="errorBox">
+        </div>
+
+
+        <div class="announcement-layout">
+
+
+            <!-- =========================
+                 FORM
+            ========================= -->
+
+            <div class="form-card">
+
+                <h3 id="formTitle">
+                    Create Announcement
+                </h3>
+
+
+                <form
+                    id="announcementForm"
+                    onsubmit="saveAnnouncement(event)"
+                >
+
+                    <input
+                        type="hidden"
+                        id="editingId"
+                    >
+
+
+                    <div class="form-group">
+
+                        <label for="announcementTitle">
+                            Announcement Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="announcementTitle"
+                            placeholder="e.g. SSSA General Meeting"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="announcementContent">
+                            Announcement Content
+                        </label>
+
+                        <textarea
+                            id="announcementContent"
+                            placeholder="Write the announcement here..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <label class="publish-option">
+
+                        <input
+                            type="checkbox"
+                            id="announcementPublished"
+                            checked
+                        >
+
+                        <span>
+                            Publish this announcement
+                        </span>
+
+                    </label>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="saveButton"
+                        >
+                            Publish Announcement
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="cancelButton"
+                            onclick="cancelEdit()"
+                            style="display:none;"
+                        >
+                            Cancel
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- =========================
+                 ANNOUNCEMENT LIST
+            ========================= -->
+
+            <div class="list-card">
+
+                <div class="list-header">
+
+                    <div>
+
+                        <h3>
+                            Announcements
+                        </h3>
+
+                        <span id="announcementCount">
+                            0 announcements
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="announcement-list"
+                    id="announcementList">
+
+                    <div class="loading">
+                        Loading announcements...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../js/supabase.js"></script>
+
+
+<!-- =========================
+     ANNOUNCEMENTS
+========================= -->
+
+<script>
+
+let announcements = [];
+let editingId = null;
+
+
+/* =========================
+   ADMIN SESSION CHECK
+========================= */
+
+async function checkAdminSession() {
+
+    const {
+        data: { session },
+        error
+    } = await supabaseClient.auth.getSession();
+
+
+    if (error || !session) {
+
+        window.location.href = "login.html";
+
+        return false;
+    }
+
+
+    const { data: admin, error: adminError } =
+        await supabaseClient
+            .from("admin_users")
+            .select("id")
+            .eq("user_id", session.user.id)
+            .maybeSingle();
+
+
+    if (adminError || !admin) {
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href = "login.html";
+
+        return false;
+    }
+
+
+    return true;
+}
+
+
+/* =========================
+   LOAD ANNOUNCEMENTS
+========================= */
+
+async function loadAnnouncements() {
+
+    const list =
+        document.getElementById(
+            "announcementList"
+        );
+
+
+    list.innerHTML = `
+        <div class="loading">
+            Loading announcements...
+        </div>
+    `;
+
+
+    const { data, error } =
+        await supabaseClient
+            .from("announcements")
+            .select(`
+                id,
+                title,
+                content,
+                published,
+                created_at,
+                updated_at
+            `)
+            .order(
+                "created_at",
+                { ascending: false }
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Load announcements error:",
+            error
+        );
+
+        showError(
+            error.message ||
+            "Unable to load announcements."
+        );
+
+        return;
+    }
+
+
+    announcements = data || [];
+
+    renderAnnouncements();
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderAnnouncements() {
+
+    const list =
+        document.getElementById(
+            "announcementList"
+        );
+
+
+    const count =
+        document.getElementById(
+            "announcementCount"
+        );
+
+
+    count.textContent =
+        `${announcements.length} announcement${
+            announcements.length === 1 ? "" : "s"
+        }`;
+
+
+    if (announcements.length === 0) {
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📢
+                </div>
+
+                <p>
+                    No announcements yet.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        announcements.map(
+            announcement => {
+
+                const published =
+                    announcement.published === true;
+
+
+                const statusClass =
+                    published
+                        ? "badge-published"
+                        : "badge-draft";
+
+/* =========================
+   CONTINUATION
+   RENDER ANNOUNCEMENTS
+========================= */
+
+                const statusText =
+                    published
+                        ? "Published"
+                        : "Draft";
+
+
+                const actionText =
+                    published
+                        ? "Move to Draft"
+                        : "Publish";
+
+
+                const actionClass =
+                    published
+                        ? "btn-draft"
+                        : "btn-publish";
+
+
+                return `
+
+                    <div class="announcement-item">
+
+                        <div class="announcement-top">
+
+                            <div class="announcement-title">
+                                ${escapeHTML(
+                                    announcement.title
+                                )}
+                            </div>
+
+                        </div>
+
+
+                        <div class="announcement-message">
+                            ${escapeHTML(
+                                announcement.content
+                            )}
+                        </div>
+
+
+                        <div class="announcement-meta">
+
+                            <span
+                                class="badge ${statusClass}"
+                            >
+                                ${statusText}
+                            </span>
+
+
+                            <span
+                                class="badge date-badge"
+                            >
+                                📅 ${formatDate(
+                                    announcement.created_at
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div class="announcement-actions">
+
+                            <button
+                                class="btn btn-edit"
+                                onclick="editAnnouncement('${announcement.id}')"
+                            >
+                                ✏️ Edit
+                            </button>
+
+
+                            <button
+                                class="btn ${actionClass}"
+                                onclick="togglePublished('${announcement.id}')"
+                            >
+                                ${actionText}
+                            </button>
+
+
+                            <button
+                                class="btn btn-delete"
+                                onclick="deleteAnnouncement('${announcement.id}')"
+                            >
+                                🗑️ Delete
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =========================
+   SAVE / UPDATE
+========================= */
+
+async function saveAnnouncement(event) {
+
+    event.preventDefault();
+
+    const title =
+        document
+            .getElementById("announcementTitle")
+            .value
+            .trim();
+
+
+    const content =
+        document
+            .getElementById("announcementContent")
+            .value
+            .trim();
+
+
+    const published =
+        document
+            .getElementById("announcementPublished")
+            .checked;
+
+
+    if (!title || !content) {
+
+        showError(
+            "Please enter both a title and announcement content."
+        );
+
+        return;
+    }
+
+
+    const saveButton =
+        document.getElementById("saveButton");
+
+
+    saveButton.disabled = true;
+
+    saveButton.textContent =
+        editingId
+            ? "Updating..."
+            : "Saving...";
+
+
+    hideError();
+
+
+    try {
+
+        /* =========================
+           UPDATE EXISTING
+        ========================= */
+
+        if (editingId) {
+
+            const { error } =
+                await supabaseClient
+                    .from("announcements")
+                    .update({
+
+                        title: title,
+
+                        content: content,
+
+                        published: published,
+
+                        updated_at:
+                            new Date().toISOString()
+
+                    })
+                    .eq(
+                        "id",
+                        editingId
+                    );
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            alert(
+                "Announcement updated successfully."
+            );
+
+        }
+
+
+        /* =========================
+           CREATE NEW
+        ========================= */
+
+        else {
+
+            const { error } =
+                await supabaseClient
+                    .from("announcements")
+                    .insert({
+
+                        title: title,
+
+                        content: content,
+
+                        published: published
+
+                    });
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            alert(
+                published
+                    ? "Announcement published successfully."
+                    : "Announcement saved as draft."
+            );
+
+        }
+
+
+        resetForm();
+
+        await loadAnnouncements();
+
+
+    } catch (error) {
+
+        console.error(
+            "Save announcement error:",
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to save announcement."
+        );
+
+
+    } finally {
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+            editingId
+                ? "Update Announcement"
+                : "Publish Announcement";
+
+    }
+
+}
+
+
+/* =========================
+   EDIT ANNOUNCEMENT
+========================= */
+
+function editAnnouncement(id) {
+
+    const announcement =
+        announcements.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!announcement) {
+
+        showError(
+            "Announcement not found."
+        );
+
+        return;
+    }
+
+
+    editingId = announcement.id;
+
+
+    document.getElementById(
+        "editingId"
+    ).value =
+        announcement.id;
+
+
+    document.getElementById(
+        "announcementTitle"
+    ).value =
+        announcement.title || "";
+
+
+    document.getElementById(
+        "announcementContent"
+    ).value =
+        announcement.content || "";
+
+
+    document.getElementById(
+        "announcementPublished"
+    ).checked =
+        announcement.published === true;
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Edit Announcement";
+
+
+    document.getElementById(
+        "saveButton"
+    ).textContent =
+        "Update Announcement";
+
+
+    document.getElementById(
+        "cancelButton"
+    ).style.display =
+        "block";
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* =========================
+   DELETE ANNOUNCEMENT
+========================= */
+
+async function deleteAnnouncement(id) {
+
+    const announcement =
+        announcements.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!announcement) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete "${announcement.title}"?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const { error } =
+        await supabaseClient
+            .from("announcements")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Delete announcement error:",
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to delete announcement."
+        );
+
+        return;
+    }
+
+
+    alert(
+        "Announcement deleted successfully."
+    );
+
+
+    await loadAnnouncements();
+
+}
+
+
+/* =========================
+   PUBLISH / MOVE TO DRAFT
+========================= */
+
+async function togglePublished(id) {
+
+    const announcement =
+        announcements.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!announcement) {
+        return;
+    }
+
+
+    const newStatus =
+        announcement.published !== true;
+
+
+    const { error } =
+        await supabaseClient
+            .from("announcements")
+            .update({
+
+                published: newStatus,
+
+                updated_at:
+                    new Date().toISOString()
+
+            })
+            .eq(
+                "id",
+                id
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Publish status error:",
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to update publication status."
+        );
+
+        return;
+    }
+
+
+    await loadAnnouncements();
+
+}
+
+
+/* =========================
+   RESET FORM
+========================= */
+
+function resetForm() {
+
+    document
+        .getElementById("announcementForm")
+        .reset();
+
+
+    editingId = null;
+
+
+    document.getElementById(
+        "editingId"
+    ).value = "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Create Announcement";
+
+
+    document.getElementById(
+        "saveButton"
+    ).textContent =
+        "Publish Announcement";
+
+
+    document.getElementById(
+        "announcementPublished"
+    ).checked = true;
+
+
+    document.getElementById(
+        "cancelButton"
+    ).style.display =
+        "none";
+
+
+    hideError();
+
+}
+
+
+/* =========================
+   CANCEL EDIT
+========================= */
+
+function cancelEdit() {
+
+    resetForm();
+
+}
+
+
+/* =========================
+   FORMAT DATE
+========================= */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "—";
+    }
+
+
+    const date =
+        new Date(dateString);
+
+
+    return date.toLocaleDateString(
+        "en-KE",
+        {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+function showError(message) {
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    errorBox.textContent =
+        message;
+
+
+    errorBox.style.display =
+        "block";
+
+
+    errorBox.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "center"
+
+    });
+
+}
+
+
+function hideError() {
+
+    const errorBox =
+        document.getElementById(
+            "errorBox"
+        );
+
+
+    errorBox.textContent = "";
+
+    errorBox.style.display =
+        "none";
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logout() {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    await supabaseClient.auth.signOut();
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================
+   MOBILE SIDEBAR
+========================= */
+
+function openSidebar() {
+
+    document
+        .getElementById("sidebar")
+        .classList.add("active");
+
+
+    document
+        .getElementById("overlay")
+        .classList.add("active");
+
+}
+
+
+function closeSidebar() {
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("overlay")
+        .classList.remove("active");
+
+}
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        const authorized =
+            await checkAdminSession();
+
+
+        if (!authorized) {
+            return;
+        }
+
+
+        await loadAnnouncements();
+
+    }
+);
+</script>
+<script src="../js/admin-guard.js"></script>
+
+</body>
+</html>

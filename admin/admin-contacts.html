@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Messages | SSSA Admin</title>
+
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase.js"></script>
+
+    <style>
+        .messages-container {
+            padding: 25px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .page-header h1 {
+            margin: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .stat-card h3 {
+            margin: 0 0 8px;
+            font-size: 15px;
+            color: #666;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #174ea6;
+        }
+
+        .messages-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar input,
+        .toolbar select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .toolbar input {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .message-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message-item {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 18px;
+            transition: 0.2s;
+        }
+
+        .message-item:hover {
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        .message-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .sender-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .sender-email {
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .message-subject {
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .message-preview {
+            color: #666;
+            margin-top: 7px;
+            line-height: 1.5;
+        }
+
+        .message-date {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-new {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status-read {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-replied {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            padding: 8px 13px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-view {
+            background: #174ea6;
+            color: white;
+        }
+
+        .btn-read {
+            background: #f0ad4e;
+            color: white;
+        }
+
+        .btn-replied {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #777;
+        }
+
+        /* Modal */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.55);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #fff;
+            max-width: 650px;
+            margin: 60px auto;
+            padding: 25px;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 25px;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            padding-right: 30px;
+        }
+
+        .modal-field {
+            margin: 15px 0;
+        }
+
+        .modal-field strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .modal-message {
+            background: #f7f7f7;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .reply-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 16px;
+            background: #174ea6;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+        }
+
+        @media (max-width: 900px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .messages-container {
+                padding: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .messages-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="messages-container">
+
+    <div class="page-header">
+        <div>
+            <h1>Contact Messages</h1>
+            <p>Manage messages received from the SSSA website.</p>
+        </div>
+    </div>
+
+    <!-- STATISTICS -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h3>Total Messages</h3>
+            <div class="stat-number" id="totalMessages">0</div>
+        </div>
+
+        <div class="stat-card">
+            <h3>New Messages</h3>
+            <div class="stat-number" id="newMessages">0</div>
+        </div>
+
+        <div class="stat-card">
+            <h3>Read</h3>
+            <div class="stat-number" id="readMessages">0</div>
+        </div>
+
+        <div class="stat-card">
+            <h3>Replied</h3>
+            <div class="stat-number" id="repliedMessages">0</div>
+        </div>
+
+    </div>
+
+    <!-- MESSAGES -->
+
+    <div class="messages-card">
+
+        <div class="toolbar">
+
+            <input
+                type="text"
+                id="searchMessages"
+                placeholder="Search by name, email or subject..."
+            >
+
+            <select id="statusFilter">
+                <option value="all">All Messages</option>
+                <option value="new">New</option>
+                <option value="read">Read</option>
+                <option value="replied">Replied</option>
+            </select>
+
+        </div>
+
+        <div id="messageList" class="message-list">
+
+            <div class="empty-message">
+                Loading messages...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MESSAGE MODAL -->
+
+<div id="messageModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-modal" onclick="closeMessage()">&times;</span>
+
+        <h2 id="modalSubject">Message</h2>
+
+        <div class="modal-field">
+            <strong>From</strong>
+            <span id="modalName"></span>
+        </div>
+
+        <div class="modal-field">
+            <strong>Email</strong>
+            <span id="modalEmail"></span>
+        </div>
+
+        <div class="modal-field">
+            <strong>Date</strong>
+            <span id="modalDate"></span>
+        </div>
+
+        <div class="modal-field">
+            <strong>Message</strong>
+
+            <div
+                id="modalMessage"
+                class="modal-message">
+            </div>
+
+        </div>
+
+        <a
+            id="replyButton"
+            class="reply-button"
+            href="#">
+            Reply by Email
+        </a>
+
+    </div>
+
+</div>
+
+
+<script src="../js/admin-contacts.js"></script>
+<script src="../js/admin-guard.js"></script>
+</body>
+</html>

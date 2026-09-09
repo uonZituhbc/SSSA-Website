@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SSSA | University of Eldoret</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* =========================
+           HOME ANNOUNCEMENTS
+        ========================= */
+
+        .home-announcements {
+            background: #f8fbff;
+            padding: 60px 0;
+        }
+
+        .home-announcements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 35px;
+        }
+
+        .home-announcement-card {
+            background: #ffffff;
+            border: 1px solid #e4ebf2;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .home-announcement-card h3 {
+            color: #064789;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .home-announcement-date {
+            color: #667085;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .home-announcement-content {
+            color: #334e68;
+            line-height: 1.7;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .announcement-loading,
+        .no-home-announcements,
+        .home-announcement-error {
+            text-align: center;
+            color: #667085;
+            padding: 30px;
+            grid-column: 1 / -1;
+        }
+
+        .announcement-view-all {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        @media (max-width: 900px) {
+
+            .home-announcements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .home-announcements-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="site-header">
+
+        <div class="container header-content">
+
+            <a href="index.html" class="logo">
+
+                <div class="logo-placeholder">
+                    SSSA
+                </div>
+
+                <div class="logo-text">
+                    <strong>SSSA</strong>
+                    <span>University of Eldoret</span>
+                </div>
+
+            </a>
+
+
+            <!-- Mobile menu button -->
+
+            <button class="menu-toggle" onclick="toggleMenu()">
+                ☰
+            </button>
+
+
+            <!-- Navigation -->
+
+            <nav class="nav-links">
+
+                <a href="index.html" class="active">
+                    Home
+                </a>
+
+                <a href="about.html">
+                    About Us
+                </a>
+
+                <a href="departments.html">
+                    Departments
+                </a>
+
+                <a href="association.html">
+                    Association
+                </a>
+
+                <a href="leadership.html">
+                    Leadership
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="announcements.html">
+                    Announcements
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+                <a href="registration.html" class="nav-register">
+                    Register
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="container hero-content">
+
+                <div class="hero-text">
+
+                    <span class="hero-badge">
+                        UNIVERSITY OF ELDORET
+                    </span>
+
+                    <h1>
+                        School of Science
+                        <span>
+                            Students Association
+                        </span>
+                    </h1>
+
+                    <p>
+                        Empowering students through leadership, innovation,
+                        academic excellence and meaningful connections.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="registration.html"
+                           class="btn btn-primary">
+                            Become a Member
+                        </a>
+
+                        <a href="about.html"
+                           class="btn btn-secondary">
+                            Discover SSSA
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-card">
+
+                    <div class="science-icon">
+                        🔬
+                    </div>
+
+                    <h2>
+                        Knowledge • Innovation • Leadership
+                    </h2>
+
+                    <p>
+                        Building a stronger and more connected community
+                        of science students at the University of Eldoret.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= WELCOME ================= -->
+
+        <section class="welcome section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span>
+                        WELCOME TO SSSA
+                    </span>
+
+                    <h2>
+                        Empowering Science Students
+                    </h2>
+
+                    <p>
+                        The School of Science Students Association provides
+                        a platform where students can connect, learn,
+                        participate and grow together.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            🎓
+                        </div>
+
+                        <h3>
+                            Academic Excellence
+                        </h3>
+
+                        <p>
+                            Supporting students in achieving their academic
+                            goals through collaboration and knowledge sharing.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            👥
+                        </div>
+
+                        <h3>
+                            Student Leadership
+                        </h3>
+
+                        <p>
+                            Creating opportunities for students to develop
+                            leadership skills and serve their community.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            💡
+                        </div>
+
+                        <h3>
+                            Innovation
+                        </h3>
+
+                        <p>
+                            Encouraging creativity, technology and innovative
+                            solutions to real-world challenges.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ANNOUNCEMENTS ================= -->
+
+        <section class="home-announcements">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span>
+                        LATEST NEWS
+                    </span>
+
+                    <h2>
+                        Latest Announcements
+                    </h2>
+
+                    <p>
+                        Stay updated with the latest news and important
+                        information from SSSA.
+                    </p>
+
+                </div>
+
+
+                <div id="homeAnnouncements"
+                     class="home-announcements-grid">
+
+                    <p class="announcement-loading">
+                        Loading latest announcements...
+                    </p>
+
+                </div>
+
+
+                <div class="announcement-view-all">
+
+                    <a href="announcements.html"
+                       class="btn btn-secondary">
+                        View All Announcements →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= QUICK LINKS ================= -->
+
+        <section class="quick-section">
+
+            <div class="container">
+
+                <div class="section-heading light">
+
+                    <span>
+                        EXPLORE SSSA
+                    </span>
+
+                    <h2>
+                        Get Involved
+                    </h2>
+
+                </div>
+
+
+                <div class="quick-grid">
+
+                    <a href="leadership.html"
+                       class="quick-card">
+
+                        <span>
+                            👑
+                        </span>
+
+                        <h3>
+                            Our Leadership
+                        </h3>
+
+                        <p>
+                            Meet the students leading SSSA.
+                        </p>
+
+                    </a>
+
+
+                    <a href="events.html"
+                       class="quick-card">
+
+                        <span>
+                            📅
+                        </span>
+
+                        <h3>
+                            Events
+                        </h3>
+
+                        <p>
+                            Discover upcoming SSSA activities.
+                        </p>
+
+                    </a>
+
+
+                    <a href="registration.html"
+                       class="quick-card">
+
+                        <span>
+                            📝
+                        </span>
+
+                        <h3>
+                            Membership
+                        </h3>
+
+                        <p>
+                            Join SSSA and become part of the community.
+                        </p>
+
+                    </a>
+
+
+                    <a href="contact.html"
+                       class="quick-card">
+
+                        <span>
+                            📞
+                        </span>
+
+                        <h3>
+                            Contact Us
+                        </h3>
+
+                        <p>
+                            Get in touch with the association.
+                        </p>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CALL TO ACTION ================= -->
+
+        <section class="cta section">
+
+            <div class="container cta-content">
+
+                <div>
+
+                    <span>
+                        JOIN THE COMMUNITY
+                    </span>
+
+                    <h2>
+                        Your Voice. Your Future. Your Association.
+                    </h2>
+
+                    <p>
+                        Become a registered member of the School of Science
+                        Students Association.
+                    </p>
+
+                </div>
+
+
+                <a href="registration.html"
+                   class="btn btn-primary">
+
+                    Register Now — KSh 300
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-grid">
+
+            <div>
+
+                <h3>
+                    SSSA
+                </h3>
+
+                <p>
+                    School of Science Students Association
+                    <br>
+                    University of Eldoret
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Quick Links
+                </h4>
+
+                <a href="about.html">
+                    About Us
+                </a>
+
+                <a href="leadership.html">
+                    Leadership
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="announcements.html">
+                    Announcements
+                </a>
+
+                <a href="registration.html">
+                    Registration
+                </a>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Contact
+                </h4>
+
+                <p>
+                    University of Eldoret
+                </p>
+
+                <p>
+                    School of Science
+                </p>
+
+                <a href="contact.html">
+                    Contact SSSA →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © <span id="year"></span>
+
+                School of Science Students Association.
+
+                University of Eldoret.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ================= SCRIPTS ================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase.js"></script>
+
+    <script src="js/main.js"></script>
+
+
+    <!-- ================= HOMEPAGE ANNOUNCEMENTS ================= -->
+
+    <script>
+
+        async function loadHomeAnnouncements() {
+
+            const container =
+                document.getElementById("homeAnnouncements");
+
+
+            if (!container) return;
+
+
+            try {
+
+                const { data, error } =
+                    await supabaseClient
+
+                        .from("announcements")
+
+                        .select(`
+                            id,
+                            title,
+                            content,
+                            published,
+                            created_at
+                        `)
+
+                        .eq("published", true)
+
+                        .order("created_at", {
+                            ascending: false
+                        })
+
+                        .limit(3);
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                if (!data || data.length === 0) {
+
+                    container.innerHTML = `
+
+                        <p class="no-home-announcements">
+
+                            No announcements available
+                            at the moment.
+
+                        </p>
+
+                    `;
+
+                    return;
+                }
+
+
+                container.innerHTML = "";
+
+
+                data.forEach(announcement => {
+
+                    const card =
+                        document.createElement("article");
+
+
+                    card.className =
+                        "home-announcement-card";
+
+
+                    card.innerHTML = `
+
+                        <h3>
+                            ${escapeHomeHTML(
+                                announcement.title
+                            )}
+                        </h3>
+
+                        <div class="home-announcement-date">
+
+                            ${formatHomeAnnouncementDate(
+                                announcement.created_at
+                            )}
+
+                        </div>
+
+                        <div class="home-announcement-content">
+
+                            ${escapeHomeHTML(
+                                announcement.content
+                            )}
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(card);
+
+                });
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading homepage announcements:",
+                    error
+                );
+
+
+                container.innerHTML = `
+
+                    <p class="home-announcement-error">
+
+                        Unable to load announcements.
+
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =========================
+           FORMAT DATE
+        ========================= */
+
+        function formatHomeAnnouncementDate(dateString) {
+
+            if (!dateString) return "";
+
+
+            return new Date(dateString)
+                .toLocaleDateString(
+                    "en-KE",
+                    {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    }
+                );
+
+        }
+
+
+        /* =========================
+           ESCAPE HTML
+        ========================= */
+
+        function escapeHomeHTML(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+
+            return String(value)
+
+                .replace(/&/g, "&amp;")
+
+                .replace(/</g, "&lt;")
+
+                .replace(/>/g, "&gt;")
+
+                .replace(/"/g, "&quot;")
+
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =========================
+           LOAD
+        ========================= */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                loadHomeAnnouncements();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
+```1

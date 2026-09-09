@@ -1,0 +1,600 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Registration | SSSA — University of Eldoret</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head><body><!-- ================= HEADER ================= -->
+
+<header class="site-header">
+
+    <div class="container header-content">
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-placeholder">
+                SSSA
+            </div>
+
+            <div class="logo-text">
+                <strong>SSSA</strong>
+                <span>University of Eldoret</span>
+            </div>
+
+        </a>
+
+        <button class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </button>
+
+        <nav class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="about.html">About Us</a>
+
+            <a href="departments.html">Departments</a>
+
+            <a href="association.html">Association</a>
+
+            <a href="leadership.html">Leadership</a>
+
+            <a href="events.html">Events</a>
+
+            <a href="contact.html">Contact</a>
+
+            <a href="registration.html" class="nav-register active">
+                Register
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- ================= PAGE HERO ================= -->
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <span>
+            SSSA MEMBERSHIP
+        </span>
+
+        <h1>
+            Become a Registered Member
+        </h1>
+
+        <p>
+            Join the School of Science Students Association
+            and become part of a stronger science student community.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= REGISTRATION ================= -->
+
+<section class="section">
+
+    <div class="container registration-layout">
+
+        <!-- ================= INFORMATION ================= -->
+
+        <div class="registration-info">
+
+            <span class="about-label">
+                MEMBERSHIP REGISTRATION
+            </span>
+
+            <h2>
+                Your Voice. Your Future. Your Association.
+            </h2>
+
+            <p>
+                Register as a member of the School of Science
+                Students Association at the University of Eldoret.
+            </p>
+
+            <p>
+                Membership gives students an opportunity to
+                participate in association activities, academic
+                programmes, leadership initiatives and community
+                engagements.
+            </p>
+
+            <div class="membership-fee">
+
+                <span>
+                    MEMBERSHIP FEE
+                </span>
+
+                <strong>
+                    KSh 300
+                </strong>
+
+                <p>
+                    One-time registration fee
+                </p>
+
+            </div>
+
+            <div class="registration-benefits">
+
+                <h3>
+                    Why Register?
+                </h3>
+
+                <div>✓ Participate in SSSA activities</div>
+
+                <div>✓ Access student programmes</div>
+
+                <div>✓ Connect with fellow science students</div>
+
+                <div>✓ Participate in leadership and innovation</div>
+
+                <div>✓ Have your voice represented</div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= FORM ================= -->
+
+        <div class="registration-card">
+
+            <div class="registration-card-header">
+
+                <span>
+                    STEP 1
+                </span>
+
+                <h2>
+                    Student Details
+                </h2>
+
+                <p>
+                    Fill in your details to begin registration.
+                </p>
+
+            </div>
+
+
+            <form id="registrationForm">
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                    <label for="fullName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- REGISTRATION NUMBER -->
+
+                <div class="form-group">
+
+                    <label for="registrationNumber">
+                        Registration Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registrationNumber"
+                        name="registrationNumber"
+                        placeholder="e.g. COM/111/25"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        M-Pesa Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="07XXXXXXXX"
+                        inputmode="tel"
+                        required
+                    >
+
+                    <small>
+                        This number will receive the M-Pesa STK Push.
+                    </small>
+
+                </div>
+
+
+                <!-- COURSE -->
+
+                <div class="form-group">
+
+                    <label for="course">
+                        Course
+                    </label>
+
+                    <select
+                        id="course"
+                        name="course"
+                        required
+                    >
+
+                        <option value="">
+                            Select your course
+                        </option>
+
+                        <option value="Biological Sciences">
+                            Biological Sciences
+                        </option>
+
+                        <option value="Chemistry">
+                            Chemistry
+                        </option>
+
+                        <option value="Mathematics">
+                            Mathematics
+                        </option>
+
+                        <option value="Physics">
+                            Physics
+                        </option>
+
+                        <option value="Computer Science">
+                            Computer Science
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- YEAR -->
+
+                <div class="form-group">
+
+                    <label for="yearOfStudy">
+                        Year of Study
+                    </label>
+
+                    <select
+                        id="yearOfStudy"
+                        name="yearOfStudy"
+                        required
+                    >
+
+                        <option value="">
+                            Select year
+                        </option>
+
+                        <option value="Year 1">Year 1</option>
+                        <option value="Year 2">Year 2</option>
+                        <option value="Year 3">Year 3</option>
+                        <option value="Year 4">Year 4</option>
+                        <option value="Year 5">Year 5</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- PAYMENT -->
+
+                <div class="payment-box">
+
+                    <div>
+
+                        <span>
+                            REGISTRATION FEE
+                        </span>
+
+                        <strong>
+                            KSh 300
+                        </strong>
+
+                    </div>
+
+                    <small>
+                        After submitting your details, an
+                        M-Pesa payment prompt will be sent to
+                        the phone number above.
+                    </small>
+
+                </div>
+
+
+                <!-- TERMS -->
+
+                <label class="checkbox-label">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <span>
+                        I confirm that the information provided
+                        is correct and I agree to the SSSA
+                        membership requirements.
+                    </span>
+
+                </label>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    id="registrationSubmit"
+                    class="btn btn-primary registration-submit"
+                >
+                    Register & Pay KSh 300 →
+                </button>
+
+
+                <!-- MESSAGE -->
+
+                <p
+                    id="registrationMessage"
+                    class="registration-message"
+                ></p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROCESS ================= -->
+
+<section class="about-values">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                Registration Process
+            </h2>
+
+            <p>
+                Complete these simple steps to become an SSSA member.
+            </p>
+
+        </div>
+
+
+        <div class="registration-steps">
+
+            <div class="registration-step">
+
+                <div class="step-number">01</div>
+
+                <h3>
+                    Fill the Form
+                </h3>
+
+                <p>
+                    Provide your student information accurately.
+                </p>
+
+            </div>
+
+
+            <div class="registration-step">
+
+                <div class="step-number">02</div>
+
+                <h3>
+                    Make Payment
+                </h3>
+
+                <p>
+                    An M-Pesa STK Push will appear on your phone.
+                </p>
+
+            </div>
+
+
+            <div class="registration-step">
+
+                <div class="step-number">03</div>
+
+                <h3>
+                    Confirmation
+                </h3>
+
+                <p>
+                    Your payment will be securely verified.
+                </p>
+
+            </div>
+
+
+            <div class="registration-step">
+
+                <div class="step-number">04</div>
+
+                <h3>
+                    Membership
+                </h3>
+
+                <p>
+                    Your registration becomes active after
+                    successful payment.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta section">
+
+    <div class="container cta-content">
+
+        <div>
+
+            <span>
+                SCHOOL OF SCIENCE STUDENTS ASSOCIATION
+            </span>
+
+            <h2>
+                Together We Move Forward.
+            </h2>
+
+            <p>
+                Join your fellow science students and become
+                part of the SSSA community.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+        <div>
+
+            <h3>SSSA</h3>
+
+            <p>
+                School of Science Students Association
+                <br>
+                University of Eldoret
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4>Quick Links</h4>
+
+            <a href="index.html">Home</a>
+
+            <a href="association.html">
+                Association
+            </a>
+
+            <a href="leadership.html">
+                Leadership
+            </a>
+
+            <a href="events.html">
+                Events
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h4>Membership</h4>
+
+            <p>
+                Registration Fee
+            </p>
+
+            <strong>
+                KSh 300
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © <span id="year"></span>
+            School of Science Students Association.
+            University of Eldoret.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/registration.js"></script>
+
+</body>
+</html>

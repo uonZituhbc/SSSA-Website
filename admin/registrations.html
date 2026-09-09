@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Registrations | SSSA Admin</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8fc;
+            color: #102a43;
+        }
+
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #064789;
+            color: white;
+            padding: 25px 18px;
+            z-index: 1000;
+        }
+
+
+        .sidebar-logo {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.18);
+        }
+
+
+        .logo-box {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            background: white;
+            color: #064789;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+
+        .sidebar-logo h2 {
+            font-size: 18px;
+        }
+
+
+        .sidebar-logo p {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+
+        .menu {
+            margin-top: 25px;
+        }
+
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            padding: 13px 14px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+
+        .menu a:hover,
+        .menu a.active {
+            background: rgba(255,255,255,0.15);
+        }
+
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+
+        .logout button {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: white;
+            padding: 11px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+
+        .logout button:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+            min-height: 100vh;
+        }
+
+
+        .topbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e4ebf2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+
+        .topbar h1 {
+            font-size: 22px;
+        }
+
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        .admin-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #dcecff;
+            color: #064789;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+
+        .content {
+            padding: 30px;
+        }
+
+
+        .page-intro {
+            margin-bottom: 25px;
+        }
+
+
+        .page-intro h2 {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+
+        .page-intro p {
+            color: #667085;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e4ebf2;
+            border-radius: 12px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: #eef6ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+
+        .stat-info span {
+            display: block;
+            color: #667085;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+
+        .stat-info strong {
+            font-size: 25px;
+        }
+
+
+        /* =========================
+           FILTERS
+        ========================= */
+
+        .filters {
+            background: white;
+            border: 1px solid #e4ebf2;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+        }
+
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #d5dee8;
+            border-radius: 7px;
+            outline: none;
+            background: white;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #064789;
+        }
+
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-card {
+            background: white;
+            border: 1px solid #e4ebf2;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+
+        .table-header {
+            padding: 20px;
+            border-bottom: 1px solid #e4ebf2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .table-header h3 {
+            font-size: 17px;
+        }
+
+
+        .table-header span {
+            color: #667085;
+            font-size: 13px;
+        }
+
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+
+        th,
+        td {
+            padding: 15px 18px;
+            text-align: left;
+            border-bottom: 1px solid #edf1f5;
+            font-size: 13px;
+        }
+
+
+        th {
+            background: #f8fafc;
+            color: #475467;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+
+        td {
+            color: #344054;
+        }
+
+
+        tbody tr:hover {
+            background: #f9fbfd;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+
+        .status-paid {
+            background: #e7f7ed;
+            color: #18794e;
+        }
+
+
+        .status-pending {
+            background: #fff4e5;
+            color: #b54708;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .actions {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+
+        .btn {
+            border: none;
+            border-radius: 6px;
+            padding: 7px 10px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+
+        .btn-paid {
+            background: #e7f7ed;
+            color: #18794e;
+        }
+
+
+        .btn-pending {
+            background: #fff4e5;
+            color: #b54708;
+        }
+
+
+        .btn-delete {
+            background: #feeceb;
+            color: #c62828;
+        }
+
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+
+        /* =========================
+           EMPTY / LOADING / ERROR
+        ========================= */
+
+        .empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: #667085;
+        }
+
+
+        .empty-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+
+        .error-box {
+            background: #fff1f0;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        .menu-toggle {
+            display: none;
+            border: none;
+            background: #064789;
+            color: white;
+            font-size: 22px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 900;
+        }
+
+
+        @media (max-width: 1000px) {
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+
+            .filter-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+
+            .filter-grid .search-box {
+                grid-column: 1 / -1;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+
+            .overlay.active {
+                display: block;
+            }
+
+
+            .main {
+                margin-left: 0;
+            }
+
+
+            .menu-toggle {
+                display: block;
+            }
+
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+
+            .topbar h1 {
+                font-size: 18px;
+            }
+
+
+            .content {
+                padding: 20px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .filter-grid .search-box {
+                grid-column: auto;
+            }
+
+
+            .content {
+                padding: 15px;
+            }
+
+
+            .page-intro h2 {
+                font-size: 21px;
+            }
+
+
+            .admin-profile span {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside
+    class="sidebar"
+    id="sidebar"
+>
+
+    <div class="sidebar-logo">
+
+        <div class="logo-box">
+            SSSA
+        </div>
+
+        <h2>
+            SSSA Admin Panel
+        </h2>
+
+        <p>
+            University of Eldoret
+        </p>
+
+    </div>
+
+
+    <nav class="menu">
+
+        <a href="dashboard.html">
+            📊 Dashboard
+        </a>
+
+        <a href="leadership.html">
+            👥 Leadership
+        </a>
+
+        <a href="events.html">
+            📅 Events
+        </a>
+
+        <a href="announcements.html">
+            📢 Announcements
+        </a>
+
+        <a
+            href="registrations.html"
+            class="active"
+        >
+            📝 Registrations
+        </a>
+
+        <a
+            href="../index.html"
+            target="_blank"
+        >
+            🌐 View Website
+        </a>
+
+    </nav>
+
+
+    <div class="logout">
+
+        <button onclick="logout()">
+            🚪 Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+<div
+    class="overlay"
+    id="overlay"
+    onclick="closeSidebar()"
+></div>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+
+    <header class="topbar">
+
+        <div
+            style="
+                display:flex;
+                align-items:center;
+                gap:12px;
+            "
+        >
+
+            <button
+                class="menu-toggle"
+                onclick="openSidebar()"
+            >
+                ☰
+            </button>
+
+            <h1>
+                Registrations
+            </h1>
+
+        </div>
+
+
+        <div class="admin-profile">
+
+            <span>
+                Administrator
+            </span>
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <section class="content">
+
+
+        <div class="page-intro">
+
+            <h2>
+                SSSA Membership Registrations
+            </h2>
+
+            <p>
+                View and manage students who have registered for SSSA membership.
+            </p>
+
+        </div>
+
+
+
+        <!-- ERROR MESSAGE -->
+
+        <div
+            id="errorBox"
+            class="error-box"
+        ></div>
+
+
+
+        <!-- =========================
+             STATS
+        ========================= -->
+
+        <div class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div class="stat-info">
+
+                    <span>
+                        Total Registrations
+                    </span>
+
+                    <strong id="totalRegistrations">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <div class="stat-info">
+
+                    <span>
+                        Paid Members
+                    </span>
+
+                    <strong id="paidRegistrations">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+
+                <div class="stat-info">
+
+                    <span>
+                        Pending Payments
+                    </span>
+
+                    <strong id="pendingRegistrations">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             FILTERS
+        ========================= -->
+
+        <div class="filters">
+
+            <div class="filter-grid">
+
+
+                <div class="form-group search-box">
+
+                    <label>
+                        Search
+                    </label>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search name, admission number, email..."
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Year of Study
+                    </label>
+
+                    <select id="yearFilter">
+
+                        <option value="">
+                            All Years
+                        </option>
+
+                        <option value="Year 1">
+                            Year 1
+                        </option>
+
+                        <option value="Year 2">
+                            Year 2
+                        </option>
+
+                        <option value="Year 3">
+                            Year 3
+                        </option>
+
+                        <option value="Year 4">
+                            Year 4
+                        </option>
+
+                        <option value="Year 5">
+                            Year 5
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        Payment Status
+                    </label>
+
+                    <select id="statusFilter">
+
+                        <option value="">
+                            All Statuses
+                        </option>
+
+                        <option value="Paid">
+                            Paid
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             TABLE
+        ========================= -->
+
+        <div class="table-card">
+
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Registered Students
+                    </h3>
+
+                    <span id="resultCount">
+                        0 registrations
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>
+                                Student
+                            </th>
+
+                            <th>
+                                Admission No.
+                            </th>
+
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Phone
+                            </th>
+
+                            <th>
+                                Course
+                            </th>
+
+                            <th>
+                                Year
+                            </th>
+
+                            <th>
+                                Payment
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="registrationTable">
+
+                        <tr>
+
+                            <td
+                                colspan="9"
+                                class="empty"
+                            >
+
+                                <div class="empty-icon">
+                                    ⏳
+                                </div>
+
+                                Loading registrations...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- SUPABASE CONNECTION -->
+
+<script src="../js/supabase.js"></script>
+
+
+<!-- =========================
+     REGISTRATIONS JAVASCRIPT
+========================= -->
+
+<script>
+
+    let allRegistrations = [];
+
+
+    /* ==========================================
+       ADMIN SESSION CHECK
+    ========================================== */
+
+    async function checkAdminSession() {
+
+        try {
+
+            const {
+                data: sessionData,
+                error: sessionError
+            } = await supabaseClient.auth.getSession();
+
+
+            if (
+                sessionError ||
+                !sessionData.session
+            ) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            const user =
+                sessionData.session.user;
+
+
+        /* ==========================================
+               VERIFY ADMIN USER
+            ========================================== */
+
+            const {
+                data: admin,
+                error: adminError
+            } = await supabaseClient
+                .from("admin_users")
+                .select("id")
+                .eq("user_id", user.id)
+                .maybeSingle();
+
+
+            if (adminError) {
+
+                console.error(
+                    "Admin verification error:",
+                    adminError
+                );
+
+                showError(
+                    "Unable to verify administrator account."
+                );
+
+                return;
+            }
+
+
+            if (!admin) {
+
+                alert(
+                    "You are not authorized to access this page."
+                );
+
+                await supabaseClient.auth.signOut();
+
+                window.location.href =
+                    "login.html";
+
+                return;
+            }
+
+
+            console.log(
+                "✅ Administrator verified."
+            );
+
+
+            /* ==========================================
+               LOAD REGISTRATIONS
+            ========================================== */
+
+            await loadRegistrations();
+
+
+        } catch (error) {
+
+            console.error(
+                "Session check failed:",
+                error
+            );
+
+            showError(
+                "Unable to verify your session."
+            );
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       LOAD REGISTRATIONS FROM SUPABASE
+    ========================================== */
+
+    async function loadRegistrations() {
+
+        try {
+
+            hideError();
+
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("registrations")
+                .select(`
+                    id,
+                    full_name,
+                    registration_number,
+                    course,
+                    year_of_study,
+                    phone_number,
+                    email,
+                    membership_fee,
+                    payment_status,
+                    payment_reference,
+                    registration_reference,
+                    created_at,
+                    updated_at
+                `)
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Load registrations error:",
+                    error
+                );
+
+                showError(
+                    "Could not load registrations. Check your Supabase table permissions/RLS policies."
+                );
+
+                return;
+            }
+
+
+            allRegistrations =
+                data || [];
+
+
+            console.log(
+                "✅ Registrations loaded:",
+                allRegistrations
+            );
+
+
+            updateStatistics();
+
+            renderRegistrations();
+
+
+        } catch (error) {
+
+            console.error(
+                "Unexpected registration error:",
+                error
+            );
+
+            showError(
+                "An unexpected error occurred while loading registrations."
+            );
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       UPDATE STATISTICS
+    ========================================== */
+
+    function updateStatistics() {
+
+        const total =
+            allRegistrations.length;
+
+
+        const paid =
+            allRegistrations.filter(
+                registration =>
+                    String(
+                        registration.payment_status || ""
+                    ).toLowerCase() === "paid"
+            ).length;
+
+
+        const pending =
+            total - paid;
+
+
+        document.getElementById(
+            "totalRegistrations"
+        ).textContent = total;
+
+
+        document.getElementById(
+            "paidRegistrations"
+        ).textContent = paid;
+
+
+        document.getElementById(
+            "pendingRegistrations"
+        ).textContent = pending;
+
+    }
+
+
+
+    /* ==========================================
+       RENDER REGISTRATIONS
+    ========================================== */
+
+    function renderRegistrations() {
+
+        const table =
+            document.getElementById(
+                "registrationTable"
+            );
+
+
+        const search =
+            document.getElementById(
+                "searchInput"
+            )
+            .value
+            .toLowerCase()
+            .trim();
+
+
+        const selectedYear =
+            document.getElementById(
+                "yearFilter"
+            ).value;
+
+
+        const selectedStatus =
+            document.getElementById(
+                "statusFilter"
+            ).value;
+
+
+        const filtered =
+            allRegistrations.filter(
+                registration => {
+
+
+                    const searchableText = `
+
+                        ${registration.full_name || ""}
+
+                        ${registration.registration_number || ""}
+
+                        ${registration.email || ""}
+
+                        ${registration.phone_number || ""}
+
+                        ${registration.course || ""}
+
+                        ${registration.year_of_study || ""}
+
+                        ${registration.payment_reference || ""}
+
+                        ${registration.registration_reference || ""}
+
+                    `
+                    .toLowerCase();
+
+
+                    const matchesSearch =
+                        !search ||
+                        searchableText.includes(
+                            search
+                        );
+
+
+                    const matchesYear =
+                        !selectedYear ||
+                        String(
+                            registration.year_of_study || ""
+                        ) === selectedYear;
+
+
+                    const paymentStatus =
+                        String(
+                            registration.payment_status || "Pending"
+                        ).toLowerCase();
+
+
+                    const normalizedStatus =
+                        paymentStatus === "paid"
+                            ? "Paid"
+                            : "Pending";
+
+
+                    const matchesStatus =
+                        !selectedStatus ||
+                        normalizedStatus ===
+                            selectedStatus;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesYear &&
+                        matchesStatus
+                    );
+
+                }
+            );
+
+
+        document.getElementById(
+            "resultCount"
+        ).textContent =
+            `${filtered.length} registration${
+                filtered.length === 1
+                    ? ""
+                    : "s"
+            }`;
+
+
+
+        /* ==========================================
+           NO RESULTS
+        ========================================== */
+
+        if (
+            filtered.length === 0
+        ) {
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="9"
+                        class="empty"
+                    >
+
+                        <div class="empty-icon">
+                            📝
+                        </div>
+
+                        <p>
+                            No registrations found.
+                        </p>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+
+        /* ==========================================
+           DISPLAY RESULTS
+        ========================================== */
+
+        table.innerHTML =
+            filtered.map(
+                (registration, index) => {
+
+
+                    const paymentStatus =
+                        String(
+                            registration.payment_status ||
+                            "Pending"
+                        ).toLowerCase();
+
+
+                    const isPaid =
+                        paymentStatus === "paid";
+
+
+                    const statusText =
+                        isPaid
+                            ? "Paid"
+                            : "Pending";
+
+
+                    return `
+
+                        <tr>
+
+
+                            <td>
+                                ${index + 1}
+                            </td>
+
+
+                            <td>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        registration.full_name ||
+                                        "—"
+                                    )}
+                                </strong>
+
+                            </td>
+
+
+                            <td>
+
+                                ${escapeHTML(
+                                    registration.registration_number ||
+                                    "—"
+                                )}
+
+                            </td>
+
+
+                            <td>
+
+                                ${escapeHTML(
+                                    registration.email ||
+                                    "—"
+                                )}
+
+                            </td>
+
+
+                            <td>
+
+                                ${escapeHTML(
+                                    registration.phone_number ||
+                                    "—"
+                                )}
+
+                            </td>
+
+
+                            <td>
+
+                                ${escapeHTML(
+                                    registration.course ||
+                                    "—"
+                                )}
+
+                            </td>
+
+
+                            <td>
+
+                                ${escapeHTML(
+                                    registration.year_of_study ||
+                                    "—"
+                                )}
+
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    class="status ${
+                                        isPaid
+                                            ? "status-paid"
+                                            : "status-pending"
+                                    }"
+                                >
+
+                                    ${statusText}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <div class="actions">
+
+
+                                    ${
+                                        isPaid
+
+                                        ? `
+
+                                            <button
+                                                class="btn btn-pending"
+                                                onclick="changePaymentStatus(
+                                                    '${registration.id}',
+                                                    'Pending'
+                                                )"
+                                            >
+                                                Pending
+                                            </button>
+
+                                        `
+
+                                        : `
+
+                                            <button
+                                                class="btn btn-paid"
+                                                onclick="changePaymentStatus(
+                                                    '${registration.id}',
+                                                    'Paid'
+                                                )"
+                                            >
+                                                Mark Paid
+                                            </button>
+
+                                        `
+                                    }
+
+
+                                    <button
+                                        class="btn btn-delete"
+                                        onclick="deleteRegistration(
+                                            '${registration.id}'
+                                        )"
+                                    >
+                                        Delete
+                                    </button>
+
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+
+    /* ==========================================
+       CHANGE PAYMENT STATUS
+    ========================================== */
+
+    async function changePaymentStatus(
+        registrationId,
+        newStatus
+    ) {
+
+        const confirmed =
+            confirm(
+                `Change payment status to ${newStatus}?`
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const {
+                error
+            } = await supabaseClient
+                .from("registrations")
+                .update({
+
+                    payment_status:
+                        newStatus,
+
+                    updated_at:
+                        new Date().toISOString()
+
+                })
+                .eq(
+                    "id",
+                    registrationId
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Payment status update error:",
+                    error
+                );
+
+                showError(
+                    "Could not update payment status."
+                );
+
+                return;
+            }
+
+
+            console.log(
+                "✅ Payment status updated."
+            );
+
+
+            await loadRegistrations();
+
+
+        } catch (error) {
+
+            console.error(
+                "Status update failed:",
+                error
+            );
+
+            showError(
+                "An unexpected error occurred."
+            );
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       DELETE REGISTRATION
+    ========================================== */
+
+    async function deleteRegistration(
+        registrationId
+    ) {
+
+        const registration =
+            allRegistrations.find(
+                item =>
+                    String(item.id) ===
+                    String(registrationId)
+            );
+
+
+        if (!registration) {
+            return;
+        }
+
+
+        const studentName =
+            registration.full_name ||
+            "this student";
+
+
+        const confirmed =
+            confirm(
+                `Are you sure you want to permanently delete ${studentName}'s registration?`
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const {
+                error
+            } = await supabaseClient
+                .from("registrations")
+                .delete()
+                .eq(
+                    "id",
+                    registrationId
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Delete registration error:",
+                    error
+                );
+
+                showError(
+                    "Could not delete this registration."
+                );
+
+                return;
+            }
+
+
+            console.log(
+                "✅ Registration deleted."
+            );
+
+
+            await loadRegistrations();
+
+
+        } catch (error) {
+
+            console.error(
+                "Delete failed:",
+                error
+            );
+
+            showError(
+                "An unexpected error occurred while deleting."
+            );
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       SEARCH + FILTER EVENTS
+    ========================================== */
+
+    document.getElementById(
+        "searchInput"
+    ).addEventListener(
+        "input",
+        renderRegistrations
+    );
+
+
+    document.getElementById(
+        "yearFilter"
+    ).addEventListener(
+        "change",
+        renderRegistrations
+    );
+
+
+    document.getElementById(
+        "statusFilter"
+    ).addEventListener(
+        "change",
+        renderRegistrations
+    );
+
+
+
+    /* ==========================================
+       ESCAPE HTML
+    ========================================== */
+
+    function escapeHTML(value) {
+
+        return String(value)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+
+    /* ==========================================
+       SHOW ERROR
+    ========================================== */
+
+    function showError(message) {
+
+        const errorBox =
+            document.getElementById(
+                "errorBox"
+            );
+
+
+        errorBox.textContent =
+            message;
+
+
+        errorBox.style.display =
+            "block";
+
+    }
+
+
+
+    /* ==========================================
+       HIDE ERROR
+    ========================================== */
+
+    function hideError() {
+
+        const errorBox =
+            document.getElementById(
+                "errorBox"
+            );
+
+
+        errorBox.textContent =
+            "";
+
+
+        errorBox.style.display =
+            "none";
+
+    }
+
+
+
+    /* ==========================================
+       LOGOUT
+    ========================================== */
+
+    async function logout() {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to logout?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+                showError(
+                    "Logout failed. Please try again."
+                );
+
+                return;
+            }
+
+
+            window.location.href =
+                "login.html";
+
+
+        } catch (error) {
+
+            console.error(
+                "Logout failed:",
+                error
+            );
+
+            window.location.href =
+                "login.html";
+
+        }
+
+    }
+
+
+
+    /* ==========================================
+       MOBILE SIDEBAR
+    ========================================== */
+
+    function openSidebar() {
+
+        document.getElementById(
+            "sidebar"
+        )
+        .classList
+        .add("active");
+
+
+        document.getElementById(
+            "overlay"
+        )
+        .classList
+        .add("active");
+
+    }
+
+
+
+    function closeSidebar() {
+
+        document.getElementById(
+            "sidebar"
+        )
+        .classList
+        .remove("active");
+
+
+        document.getElementById(
+            "overlay"
+        )
+        .classList
+        .remove("active");
+
+    }
+
+
+
+    /* ==========================================
+       START PAGE
+    ========================================== */
+
+    checkAdminSession();
+
+</script>
+<script src="../js/admin-guard.js"></script>
+</body>
+
+</html>

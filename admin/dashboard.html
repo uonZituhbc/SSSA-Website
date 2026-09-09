@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SSSA Admin Dashboard</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f8fc;
+    color: #102a43;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.admin-layout {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background: #064789;
+    color: #ffffff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+    transition: 0.3s ease;
+}
+
+.sidebar-header {
+    padding: 25px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-logo {
+    width: 48px;
+    height: 48px;
+    background: #ffffff;
+    color: #064789;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.admin-brand-text strong {
+    display: block;
+    font-size: 17px;
+}
+
+.admin-brand-text span {
+    display: block;
+    font-size: 11px;
+    opacity: 0.75;
+    margin-top: 3px;
+}
+
+
+/* SIDEBAR NAVIGATION */
+
+.sidebar-nav {
+    padding: 20px 12px;
+}
+
+.nav-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    padding: 0 12px;
+    margin-bottom: 10px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 14px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: rgba(255,255,255,0.15);
+}
+
+.sidebar-icon {
+    width: 22px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.sidebar-bottom {
+    position: absolute;
+    bottom: 20px;
+    left: 12px;
+    right: 12px;
+}
+
+.sidebar-bottom a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 14px;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.sidebar-bottom a:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main-content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-height: 100vh;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    height: 75px;
+    background: #ffffff;
+    border-bottom: 1px solid #e4ebf2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.menu-button {
+    display: none;
+    border: none;
+    background: #eef6ff;
+    color: #064789;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.topbar-title h1 {
+    font-size: 21px;
+    margin-bottom: 3px;
+}
+
+.topbar-title p {
+    color: #667085;
+    font-size: 12px;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-avatar {
+    width: 42px;
+    height: 42px;
+    background: #dcecff;
+    color: #064789;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+.admin-profile-info strong {
+    display: block;
+    font-size: 13px;
+}
+
+.admin-profile-info span {
+    display: block;
+    color: #667085;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+
+/* =========================
+   DASHBOARD CONTENT
+========================= */
+
+.dashboard-content {
+    padding: 30px;
+}
+
+.welcome-box {
+    background: #064789;
+    color: #ffffff;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 25px;
+}
+
+.welcome-box span {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.75;
+}
+
+.welcome-box h2 {
+    margin: 8px 0;
+    font-size: 27px;
+}
+
+.welcome-box p {
+    opacity: 0.85;
+    line-height: 1.6;
+    max-width: 650px;
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border: 1px solid #e4ebf2;
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    background: #eef6ff;
+    color: #064789;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.stat-card h3 {
+    font-size: 25px;
+    margin-bottom: 4px;
+}
+
+.stat-card p {
+    color: #667085;
+    font-size: 12px;
+}
+
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.dashboard-section {
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    font-size: 20px;
+}
+
+.view-all {
+    color: #064789;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.action-card {
+    background: #ffffff;
+    border: 1px solid #e4ebf2;
+    border-radius: 12px;
+    padding: 23px;
+    text-decoration: none;
+    color: #102a43;
+    transition: 0.25s;
+}
+
+.action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(16,42,67,0.08);
+}
+
+.action-icon {
+    width: 45px;
+    height: 45px;
+    background: #eef6ff;
+    color: #064789;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+.action-card h3 {
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.action-card p {
+    color: #667085;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   RECENT ACTIVITY
+========================= */
+
+.activity-box {
+    background: #ffffff;
+    border: 1px solid #e4ebf2;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 17px 20px;
+    border-bottom: 1px solid #eef1f5;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 38px;
+    height: 38px;
+    background: #eef6ff;
+    color: #064789;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.activity-text {
+    flex: 1;
+}
+
+.activity-text strong {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.activity-text span {
+    color: #667085;
+    font-size: 11px;
+}
+
+
+/* =========================
+   OVERLAY
+========================= */
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-overlay.open {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .topbar-title {
+        margin-left: 10px;
+        margin-right: auto;
+    }
+
+    .admin-profile-info {
+        display: none;
+    }
+
+    .dashboard-content {
+        padding: 20px;
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-box {
+        padding: 22px;
+    }
+
+    .welcome-box h2 {
+        font-size: 23px;
+    }
+
+    .topbar-title h1 {
+        font-size: 17px;
+    }
+
+    .topbar-title p {
+        display: none;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+
+<!-- =========================
+     SIDEBAR
+========================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <div class="admin-brand">
+
+            <div class="admin-logo">
+                SSSA
+            </div>
+
+            <div class="admin-brand-text">
+                <strong>SSSA Admin</strong>
+                <span>University of Eldoret</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <div class="nav-title">
+            Main Menu
+        </div>
+
+
+        <a href="dashboard.html" class="active">
+            <span class="sidebar-icon">📊</span>
+            Dashboard
+        </a>
+
+
+        <a href="leadership.html">
+            <span class="sidebar-icon">👥</span>
+            Leadership
+        </a>
+
+
+        <a href="association-info.html">
+            <span class="sidebar-icon">🏢</span>
+            Association Information
+        </a>
+
+
+        <a href="events.html">
+            <span class="sidebar-icon">📅</span>
+            Events
+        </a>
+
+
+        <a href="announcements.html">
+            <span class="sidebar-icon">📢</span>
+            Announcements
+        </a>
+
+
+        <a href="registrations.html">
+            <span class="sidebar-icon">📝</span>
+            Registrations
+        </a>
+
+
+        <a href="admin-contacts.html">
+            <span class="sidebar-icon">💬</span>
+            Contacts
+        </a>
+
+
+        <div class="nav-title" style="margin-top:25px;">
+            Website
+        </div>
+
+
+        <a href="../index.html" target="_blank">
+            <span class="sidebar-icon">🌐</span>
+            View Website
+        </a>
+
+
+        <a href="settings.html">
+            <span class="sidebar-icon">⚙️</span>
+            Settings
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="login.html" onclick="logout()">
+            <span class="sidebar-icon">🚪</span>
+            Logout
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     OVERLAY
+========================== -->
+
+<div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+    onclick="closeSidebar()"
+></div>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================== -->
+
+<main class="main-content">
+
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <button
+            class="menu-button"
+            onclick="toggleSidebar()"
+        >
+            ☰
+        </button>
+
+
+        <div class="topbar-title">
+
+            <h1>Dashboard</h1>
+
+            <p>
+                SSSA Management System
+            </p>
+
+        </div>
+
+
+        <div class="admin-profile">
+
+            <div class="admin-avatar">
+                A
+            </div>
+
+            <div class="admin-profile-info">
+
+                <strong>Administrator</strong>
+
+                <span>SSSA Admin</span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD CONTENT -->
+
+    <div class="dashboard-content">
+
+
+        <!-- WELCOME -->
+
+        <section class="welcome-box">
+
+            <span>
+                ADMINISTRATION PANEL
+            </span>
+
+            <h2>
+                Welcome to SSSA Admin 👋
+            </h2>
+
+            <p>
+                Manage the School of Science Students Association
+                website, leadership, events, announcements,
+                student registrations and contacts from one
+                central place.
+            </p>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+
+        <section class="dashboard-section">
+
+            <div class="section-header">
+
+                <h2>Website Overview</h2>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <h3 id="membersCount">0</h3>
+                        <p>Registered Members</p>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📅
+                    </div>
+
+                    <div>
+                        <h3 id="eventsCount">0</h3>
+                        <p>Events</p>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📢
+                    </div>
+
+                    <div>
+                        <h3 id="announcementsCount">0</h3>
+                        <p>Announcements</p>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👨‍💼
+                    </div>
+
+                    <div>
+                        <h3 id="leadersCount">0</h3>
+                        <p>Leaders</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <section class="dashboard-section">
+
+            <div class="section-header">
+
+                <h2>Quick Actions</h2>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+
+                <a
+                    href="leadership.html"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        👥
+                    </div>
+
+                    <h3>
+                        Manage Leadership
+                    </h3>
+
+                    <p>
+                        Add, edit or remove SSSA leaders
+                        and upload their photos.
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="association-info.html"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        🏢
+                    </div>
+
+                    <h3>
+                        Association Information
+                    </h3>
+
+                    <p>
+                        Update the association name,
+                        mission, vision, objectives and logo.
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="events.html"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        📅
+                    </div>
+
+                    <h3>
+                        Create Event
+                    </h3>
+
+                    <p>
+                        Add upcoming events and event
+                        information.
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="announcements.html"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        📢
+                    </div>
+
+                    <h3>
+                        Publish Announcement
+                    </h3>
+
+                    <p>
+                        Share important information
+                        with students.
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="registrations.html"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        View Registrations
+                    </h3>
+
+                    <p>
+                        View membership registrations
+                        and payment information.
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="admin-contacts.html"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        💬
+                    </div>
+
+                    <h3>
+                        View Contacts
+                    </h3>
+
+                    <p>
+                        View and manage messages
+                        submitted by students.
+                    </p>
+
+                </a>
+
+
+                <a
+                    href="settings.html"
+                    class="action-card"
+                >
+
+                    <div class="action-icon">
+                        ⚙️
+                    </div>
+
+                    <h3>
+                        Settings
+                    </h3>
+
+                    <p>
+                        Manage website and
+                        administrator settings.
+                    </p>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECENT ACTIVITY -->
+
+        <section class="dashboard-section">
+
+            <div class="section-header">
+
+                <h2>Recent Activity</h2>
+
+            </div>
+
+
+            <div class="activity-box">
+
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        🌐
+                    </div>
+
+                    <div class="activity-text">
+
+                        <strong>
+                            SSSA website system initialized
+                        </strong>
+
+                        <span>
+                            Dashboard is ready for database connection.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        👥
+                    </div>
+
+                    <div class="activity-text">
+
+                        <strong>
+                            Leadership management
+                        </strong>
+
+                        <span>
+                            Waiting for Supabase database connection.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        📅
+                    </div>
+
+                    <div class="activity-text">
+
+                        <strong>
+                            Event management
+                        </strong>
+
+                        <span>
+                            Event storage will be connected next.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        📢
+                    </div>
+
+                    <div class="activity-text">
+
+                        <strong>
+                            Announcement system
+                        </strong>
+
+                        <span>
+                            Ready for database connection.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        💬
+                    </div>
+
+                    <div class="activity-text">
+
+                        <strong>
+                            Contact management
+                        </strong>
+
+                        <span>
+                            Student contact messages can be managed
+                            from the Contacts section.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            </section>
+
+    </div>
+
+</main>
+
+</div>
+
+
+<!-- =========================
+     DASHBOARD JAVASCRIPT
+========================== -->
+
+<script>
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const overlay =
+        document.getElementById("sidebarOverlay");
+
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("open");
+
+}
+
+
+function closeSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const overlay =
+        document.getElementById("sidebarOverlay");
+
+    sidebar.classList.remove("open");
+    overlay.classList.remove("open");
+
+}
+
+
+// ==========================================
+// SECURE ADMIN LOGOUT
+// ==========================================
+
+async function logout() {
+
+    try {
+
+        console.log(
+            "Signing out administrator..."
+        );
+
+
+        // Sign out from Supabase
+
+        const {
+            error
+        } =
+        await supabaseClient.auth.signOut();
+
+
+        if (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+            alert(
+                "Unable to sign out completely. Please try again."
+            );
+
+            return;
+        }
+
+
+        // Remove old browser flag if it exists
+
+        sessionStorage.removeItem(
+            "sssaAdmin"
+        );
+
+
+        localStorage.removeItem(
+            "sssaAdmin"
+        );
+
+
+        // Go to login page
+
+        window.location.replace(
+            "login.html"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "LOGOUT ERROR:",
+            error
+        );
+
+
+        alert(
+            "An error occurred while logging out."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   SUPABASE STATISTICS
+========================= */
+
+async function loadDashboardStatistics() {
+
+    try {
+
+        const members = await supabaseClient
+            .from("registrations")
+            .select("*", {
+                count: "exact",
+                head: true
+            });
+
+
+        const events = await supabaseClient
+            .from("events")
+            .select("*", {
+                count: "exact",
+                head: true
+            });
+
+
+        const announcements = await supabaseClient
+            .from("announcements")
+            .select("*", {
+                count: "exact",
+                head: true
+            });
+
+
+        const leaders = await supabaseClient
+            .from("leaders")
+            .select("*", {
+                count: "exact",
+                head: true
+            });
+
+
+        console.log(
+            "LEADERS RESULT:",
+            leaders
+        );
+
+
+        if (members.error) {
+
+            console.error(
+                "Members count error:",
+                members.error
+            );
+
+        }
+
+
+        if (events.error) {
+
+            console.error(
+                "Events count error:",
+                events.error
+            );
+
+        }
+
+
+        if (announcements.error) {
+
+            console.error(
+                "Announcements count error:",
+                announcements.error
+            );
+
+        }
+
+
+        if (leaders.error) {
+
+            console.error(
+                "Leaders count error:",
+                leaders.error
+            );
+
+        }
+
+
+        document.getElementById(
+            "membersCount"
+        ).textContent =
+            members.count ?? 0;
+
+
+        document.getElementById(
+            "eventsCount"
+        ).textContent =
+            events.count ?? 0;
+
+
+        document.getElementById(
+            "announcementsCount"
+        ).textContent =
+            announcements.count ?? 0;
+
+
+        document.getElementById(
+            "leadersCount"
+        ).textContent =
+            leaders.count ?? 0;
+
+
+        console.log(
+            "✅ Dashboard statistics loaded"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Dashboard statistics failed:",
+            error
+        );
+
+    }
+
+}
+
+
+loadDashboardStatistics();
+
+
+/* =========================
+   CLOSE SIDEBAR AFTER LINK
+========================= */
+
+document
+    .querySelectorAll(".sidebar-nav a")
+    .forEach(function(link) {
+
+        link.addEventListener(
+            "click",
+            function() {
+
+                if (window.innerWidth <= 800) {
+
+                    closeSidebar();
+
+                }
+
+            }
+        );
+
+    });
+
+</script>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- =========================
+     SUPABASE CONNECTION
+========================= -->
+
+<script src="../js/supabase.js"></script>
+
+
+<!-- =========================
+     DASHBOARD JAVASCRIPT
+========================= -->
+
+<script src="../js/dashboard.js"></script>
+
+<script src="../js/admin-guard.js"></script>
+</body>
+
+</html>

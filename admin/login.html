@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SSSA Administrator Login</title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(
+                135deg,
+                #064789,
+                #0b5fa5
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #064789;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            color: #064789;
+            margin-bottom: 8px;
+            font-size: 25px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #064789;
+            box-shadow:
+                0 0 0 2px rgba(6, 71, 137, 0.1);
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #555;
+        }
+
+        .forgot {
+            color: #064789;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            background: #064789;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-button:hover {
+            background: #043562;
+        }
+
+        .login-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            background: #ffe5e5;
+            color: #a00000;
+        }
+
+        .message.success {
+            display: block;
+            background: #e5f8ea;
+            color: #08752d;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #064789;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .security-note {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f5f7fa;
+            border-radius: 8px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <div class="logo">
+                SSSA
+            </div>
+
+            <h1>
+                Administrator Login
+            </h1>
+
+            <p class="subtitle">
+                University of Eldoret<br>
+                School of Science Students Association
+            </p>
+
+
+            <!-- Message -->
+            <div
+                id="message"
+                class="message">
+            </div>
+
+
+            <!-- Login Form -->
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter administrator email"
+                        required
+                        autocomplete="username"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        required
+                        autocomplete="current-password"
+                    >
+
+                </div>
+
+
+                <div class="options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        Remember me
+
+                    </label>
+
+                    <a
+                        href="#"
+                        class="forgot"
+                        id="forgotPassword"
+                    >
+                        Forgot password?
+                    </a>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <div class="security-note">
+
+                🔒 This area is restricted to authorized
+                SSSA administrators only.
+
+            </div>
+
+
+            <a
+                href="../index.html"
+                class="back-link"
+            >
+                ← Back to Website
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        // ==========================================
+        // SUPABASE CONFIGURATION
+        // ==========================================
+
+        const SUPABASE_URL =
+            "https://ancaijwogjqguubzgmcj.supabase.co";
+
+        const SUPABASE_ANON_KEY =
+            "sb_publishable_lW4r8zSI4B2UjXBpRnK6dw_S1_WrNDb";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
+            );
+
+
+        // ==========================================
+        // ELEMENTS
+        // ==========================================
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const message =
+            document.getElementById("message");
+
+        const forgotPassword =
+            document.getElementById("forgotPassword");
+
+
+        // ==========================================
+        // SHOW MESSAGE
+        // ==========================================
+
+        function showMessage(
+            text,
+            type = "error"
+        ) {
+
+            message.textContent = text;
+
+            message.className =
+                "message " + type;
+
+        }
+
+
+        // ==========================================
+        // CLEAR MESSAGE
+        // ==========================================
+
+        function clearMessage() {
+
+            message.textContent = "";
+
+            message.className =
+                "message";
+
+        }
+
+
+        // ==========================================
+        // LOGIN
+        // ==========================================
+
+        loginForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+                clearMessage();
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                if (!email || !password) {
+
+                    showMessage(
+                        "Please enter your email and password."
+                    );
+
+                    return;
+
+                }
+
+
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Signing in...";
+
+
+                try {
+
+                    // ----------------------------------
+                    // SIGN IN WITH SUPABASE AUTH
+                    // ----------------------------------
+
+                    const {
+                        data,
+                        error
+                    } =
+                    await supabaseClient.auth
+                        .signInWithPassword({
+                            email: email,
+                            password: password
+                        });
+
+
+                    if (error) {
+
+                        console.error(
+                            "Login error:",
+                            error
+                        );
+
+                        showMessage(
+                            "Invalid email or password."
+                        );
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Login";
+
+                        return;
+
+                    }
+
+
+                    if (!data.user) {
+
+                        showMessage(
+                            "Login failed. Please try again."
+                        );
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Login";
+
+                        return;
+
+                    }
+
+
+                    // ----------------------------------
+                    // CHECK ADMINISTRATOR ACCOUNT
+                    // ----------------------------------
+
+                    const {
+                        data: admin,
+                        error: adminError
+                    } =
+                    await supabaseClient
+                        .from("admin_users")
+                        .select("id, user_id")
+                        .eq(
+                            "user_id",
+                            data.user.id
+                        )
+                        .maybeSingle();
+
+
+                    if (adminError) {
+
+                        console.error(
+                            "Administrator verification error:",
+                            adminError
+                        );
+
+                        await supabaseClient
+                            .auth
+                            .signOut();
+
+                        showMessage(
+                            "Unable to verify administrator access. Please check your database security policies."
+                        );
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Login";
+
+                        return;
+
+                    }
+
+
+                    if (!admin) {
+
+                        console.warn(
+                            "User is not an authorized administrator."
+                        );
+
+                        await supabaseClient
+                            .auth
+                            .signOut();
+
+                        showMessage(
+                            "Access denied. This account is not an authorized SSSA administrator."
+                        );
+
+                        loginButton.disabled = false;
+
+                        loginButton.textContent =
+                            "Login";
+
+                        return;
+
+                    }
+
+
+                    // ----------------------------------
+                    // LOGIN SUCCESSFUL
+                    // ----------------------------------
+
+                    showMessage(
+                        "Login successful. Opening administrator dashboard...",
+                        "success"
+                    );
+
+
+                    /*
+                     * Do NOT store authentication in
+                     * sessionStorage/localStorage.
+                     *
+                     * Supabase Auth is the source of truth.
+                     */
+
+                    setTimeout(
+                        function () {
+
+                            window.location.replace(
+                                "dashboard.html"
+                            );
+
+                        },
+                        500
+                    );
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Unexpected login error:",
+                        error
+                    );
+
+                    showMessage(
+                        "An unexpected error occurred. Please try again."
+                    );
+
+                    loginButton.disabled = false;
+
+                    loginButton.textContent =
+                        "Login";
+
+                }
+
+            }
+        );
+
+
+        // ==========================================
+        // FORGOT PASSWORD
+        // ==========================================
+
+        forgotPassword.addEventListener(
+            "click",
+            async function (event) {
+
+                event.preventDefault();
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                if (!email) {
+
+                    showMessage(
+                        "Enter your email address first, then click Forgot password."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    showMessage(
+                        "Sending password reset email...",
+                        "success"
+                    );
+
+
+                    const {
+                        error
+                    } =
+                    await supabaseClient.auth
+                        .resetPasswordForEmail(
+                            email,
+                            {
+                                redirectTo:
+                                    window.location.origin +
+                                    window.location.pathname
+                            }
+                        );
+
+
+                    if (error) {
+
+                        console.error(
+                            "Password reset error:",
+                            error
+                        );
+
+                        showMessage(
+                            error.message
+                        );
+
+                        return;
+
+                    }
+
+
+                    showMessage(
+                        "Password reset instructions have been sent to your email.",
+                        "success"
+                    );
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Password reset error:",
+                        error
+                    );
+
+                    showMessage(
+                        "Unable to send password reset email."
+                    );
+
+                }
+
+            }
+        );
+
+
+        // ==========================================
+        // IMPORTANT:
+        // NO AUTOMATIC SESSION REDIRECT HERE
+        // ==========================================
+        //
+        // Opening login.html will always display
+        // the login page.
+        //
+        // We intentionally do NOT run:
+        //
+        // supabaseClient.auth.getSession()
+        //
+        // to automatically redirect to dashboard.
+        //
+        // The dashboard is protected separately
+        // by admin-guard.js.
+        // ==========================================
+
+    </script>
+
+</body>
+
+</html>
