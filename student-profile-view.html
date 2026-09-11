@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Student Profile | SSSA — University of Eldoret</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .profile-page {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-header h1 {
+            color: #064789;
+            margin-bottom: 8px;
+        }
+
+        .profile-header p {
+            color: #666;
+        }
+
+        .profile-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-photo-container {
+            flex-shrink: 0;
+        }
+
+        #profilePhoto {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #064789;
+            display: none;
+        }
+
+        .photo-placeholder {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #064789;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .student-heading h2 {
+            margin: 0 0 8px;
+            color: #064789;
+        }
+
+        .student-heading p {
+            margin: 0;
+            color: #777;
+        }
+
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .detail-box {
+            background: #f7f9fc;
+            padding: 18px;
+            border-radius: 10px;
+            border-left: 4px solid #064789;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            color: #222;
+            word-break: break-word;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-btn {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .edit-btn {
+            background: #064789;
+            color: white;
+        }
+
+        .logout-btn {
+            background: #c62828;
+            color: white;
+        }
+
+        .profile-message {
+            display: none;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .profile-message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .profile-message.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #064789;
+        }
+
+        /* Edit form */
+
+        #editProfileForm {
+            display: none;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+        }
+
+        #editProfileForm h3 {
+            color: #064789;
+            margin-bottom: 20px;
+        }
+
+        .edit-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .edit-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .edit-field label {
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #444;
+        }
+
+        .edit-field input,
+        .edit-field select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .edit-field input:focus,
+        .edit-field select:focus {
+            outline: none;
+            border-color: #064789;
+        }
+
+        .edit-actions {
+            margin-top: 22px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .save-btn {
+            background: #064789;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #777;
+            color: white;
+        }
+
+        @media (max-width: 700px) {
+            .profile-page {
+                margin: 25px auto;
+                padding: 15px;
+            }
+
+            .profile-card {
+                padding: 22px;
+            }
+
+            .profile-top {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-details,
+            .edit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-actions {
+                flex-direction: column;
+            }
+
+            .profile-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container">
+
+            <div class="logo">
+                <a href="index.html">
+                    SSSA
+                </a>
+            </div>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="departments.html">Departments</a>
+                <a href="events.html">Events</a>
+                <a href="student-profile.html">Create Profile</a>
+                <a href="student-profile-view.html" class="active">
+                    My Profile
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- PROFILE PAGE -->
+    <main class="profile-page">
+
+        <div class="profile-header">
+            <h1>My Student Profile</h1>
+            <p>University of Eldoret — School of Science Students Association</p>
+        </div>
+
+        <div id="profileMessage" class="profile-message"></div>
+
+        <div id="loadingMessage" class="loading">
+            Loading your student profile...
+        </div>
+
+        <section id="profileResult" class="profile-card" style="display:none;">
+
+            <!-- PROFILE TOP -->
+            <div class="profile-top">
+
+                <div class="profile-photo-container">
+
+                    <img id="profilePhoto" src="" alt="Student Profile Photo">
+
+                    <div id="photoPlaceholder" class="photo-placeholder">
+                        S
+                    </div>
+
+                </div>
+
+                <div class="student-heading">
+                    <h2 id="studentName">Student Name</h2>
+
+                    <p>
+                        Admission Number:
+                        <strong id="studentAdmission"></strong>
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE DETAILS -->
+            <div class="profile-details">
+
+                <div class="detail-box">
+                    <span class="detail-label">FULL NAME</span>
+                    <span id="detailName" class="detail-value"></span>
+                </div>
+
+                <div class="detail-box">
+                    <span class="detail-label">ADMISSION NUMBER</span>
+                    <span id="detailAdmission" class="detail-value"></span>
+                </div>
+
+                <div class="detail-box">
+                    <span class="detail-label">DEPARTMENT</span>
+                    <span id="detailDepartment" class="detail-value"></span>
+                </div>
+
+                <div class="detail-box">
+                    <span class="detail-label">COURSE / PROGRAMME</span>
+                    <span id="detailCourse" class="detail-value"></span>
+                </div>
+
+                <div class="detail-box">
+                    <span class="detail-label">YEAR OF STUDY</span>
+                    <span id="detailYear" class="detail-value"></span>
+                </div>
+
+                <div class="detail-box">
+                    <span class="detail-label">PHONE NUMBER</span>
+                    <span id="detailPhone" class="detail-value"></span>
+                </div>
+
+                <div class="detail-box">
+                    <span class="detail-label">EMAIL ADDRESS</span>
+                    <span id="detailEmail" class="detail-value"></span>
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+            <div class="profile-actions">
+
+                <button
+                    type="button"
+                    id="editProfileBtn"
+                    class="profile-btn edit-btn">
+                    ✏️ Edit My Profile
+                </button>
+
+                <button
+                    type="button"
+                    id="logoutBtn"
+                    class="profile-btn logout-btn">
+                    🚪 Logout
+                </button>
+
+            </div>
+
+
+            <!-- EDIT FORM -->
+            <form id="editProfileForm">
+
+                <h3>Edit My Profile</h3>
+
+                <div class="edit-grid">
+
+                    <div class="edit-field">
+                        <label for="editFullName">Full Name</label>
+                        <input
+                            type="text"
+                            id="editFullName"
+                            required>
+                    </div>
+
+                    <div class="edit-field">
+                        <label for="editPhone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="editPhone"
+                            required>
+                    </div>
+
+                    <div class="edit-field">
+                        <label for="editDepartment">Department</label>
+
+                        <select id="editDepartment" required>
+                            <option value="">Select Department</option>
+                            <option value="Mathematics & Computer Science">
+                                Mathematics & Computer Science
+                            </option>
+                            <option value="Biological Sciences">
+                                Biological Sciences
+                            </option>
+                            <option value="Chemistry & Biochemistry">
+                                Chemistry & Biochemistry
+                            </option>
+                            <option value="Physics">
+                                Physics
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="edit-field">
+                        <label for="editCourse">Course / Programme</label>
+
+                        <select id="editCourse" required>
+                            <option value="">Select Course</option>
+                        </select>
+                    </div>
+
+                    <div class="edit-field">
+                        <label for="editYear">Year of Study</label>
+
+                        <select id="editYear" required>
+                            <option value="">Select Year</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                            <option value="5th Year">5th Year</option>
+                            <option value="6th Year">6th Year</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="edit-actions">
+
+                    <button
+                        type="submit"
+                        class="profile-btn save-btn">
+                        💾 Save Changes
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelEditBtn"
+                        class="profile-btn cancel-btn">
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            &copy; <span id="year"></span>
+            School of Science Students Association —
+            University of Eldoret
+        </p>
+    </footer>
+
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase.js"></script>
+
+    <script src="js/student-profile-view.js"></script>
+
+    <script>
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>

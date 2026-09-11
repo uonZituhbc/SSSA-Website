@@ -1,0 +1,603 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Student Profile | SSSA — University of Eldoret</title>
+
+<meta name="description"
+      content="Create and manage your student profile with the School of Science Students Association, University of Eldoret.">
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+    /* =========================
+       STUDENT PROFILE PAGE
+    ========================== */
+
+    .profile-page {
+        min-height: 100vh;
+        padding: 50px 20px 70px;
+        background: #f4f8fc;
+    }
+
+    .profile-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .profile-heading {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .profile-heading h1 {
+        color: #064789;
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+    }
+
+    .profile-heading p {
+        color: #555;
+        font-size: 1rem;
+        max-width: 650px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .profile-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 35px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .profile-section-title {
+        color: #064789;
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e7eef5;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1px solid #d4dce5;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        background: #fff;
+        transition: 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        border-color: #064789;
+        box-shadow: 0 0 0 3px rgba(6, 71, 137, 0.10);
+    }
+
+    .profile-photo-box {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-preview {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #064789;
+        display: block;
+        margin: 0 auto 15px;
+        background: #eef3f8;
+    }
+
+    .photo-label {
+        display: inline-block;
+        background: #064789;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .photo-label:hover {
+        opacity: 0.9;
+    }
+
+    #profilePhoto {
+        display: none;
+    }
+
+    .form-note {
+        color: #777;
+        font-size: 13px;
+        margin-top: 7px;
+    }
+
+    .submit-area {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .submit-btn {
+        background: #064789;
+        color: #ffffff;
+        border: none;
+        padding: 14px 35px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .submit-btn:hover {
+        background: #043563;
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+    .profile-message {
+        margin-top: 20px;
+        padding: 12px 15px;
+        border-radius: 8px;
+        display: none;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .profile-message.success {
+        display: block;
+        background: #e8f7ee;
+        color: #18733c;
+    }
+
+    .profile-message.error {
+        display: block;
+        background: #fdecec;
+        color: #a12626;
+    }
+
+    @media (max-width: 700px) {
+
+        .profile-page {
+            padding: 30px 15px 50px;
+        }
+
+        .profile-card {
+            padding: 22px 18px;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full-width {
+            grid-column: auto;
+        }
+
+        .profile-heading h1 {
+            font-size: 1.8rem;
+        }
+    }
+</style>
+
+</head><body><!-- =========================
+     HEADER
+========================== -->
+
+<header class="site-header">
+
+    <div class="container">
+
+        <div class="logo">
+            <a href="index.html">
+                SSSA
+            </a>
+        </div>
+
+        <nav class="site-nav">
+
+            <a href="index.html">Home</a>
+
+            <a href="about.html">About</a>
+
+            <a href="departments.html">Departments</a>
+
+            <a href="association.html">Association</a>
+
+            <a href="leadership.html">Leadership</a>
+
+            <a href="events.html">Events</a>
+
+            <a href="student-profile.html" class="active">Create Profile</a>
+<a href="student-profile-view.html">My Profile</a>
+
+            <a href="registration.html">
+                Membership
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     STUDENT PROFILE
+========================== -->
+
+<main class="profile-page">
+
+    <div class="profile-container">
+
+        <div class="profile-heading">
+
+            <h1>
+                Student Profile
+            </h1>
+
+            <p>
+                Create your SSSA student profile and provide your
+                academic and contact information. Your details will
+                help us build an organized student community across
+                departments and programmes.
+            </p>
+
+        </div>
+
+
+        <div class="profile-card">
+
+            <form id="studentProfileForm">
+
+                <!-- =========================
+                     PROFILE PHOTO
+                ========================== -->
+
+                <div class="profile-photo-box">
+
+                    <img
+                        id="profilePreview"
+                        class="profile-preview"
+                        src="assets/logo/default-profile.png"
+                        alt="Profile Preview"
+                        onerror="this.style.display='none';"
+                    >
+
+                    <label
+                        for="profilePhoto"
+                        class="photo-label"
+                    >
+                        Upload Profile Photo
+                    </label>
+
+                    <input
+                        type="file"
+                        id="profilePhoto"
+                        name="profilePhoto"
+                        accept="image/*"
+                    >
+
+                    <p class="form-note">
+                        Optional. JPG, PNG or WebP recommended.
+                    </p>
+
+                </div>
+
+
+                <!-- =========================
+                     PERSONAL INFORMATION
+                ========================== -->
+
+                <h2 class="profile-section-title">
+                    Personal Information
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+
+                        <label for="fullName">
+                            Full Name *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="admissionNumber">
+                            Admission Number *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="admissionNumber"
+                            name="admissionNumber"
+                            placeholder="e.g. UOE/SCI/001/2026"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="yearOfStudy">
+                            Year of Study *
+                        </label>
+
+                        <select
+                            id="yearOfStudy"
+                            name="yearOfStudy"
+                            required
+                        >
+
+                            <option value="">
+                                Select Year
+                            </option>
+
+                            <option value="Year 1">
+                                Year 1
+                            </option>
+
+                            <option value="Year 2">
+                                Year 2
+                            </option>
+
+                            <option value="Year 3">
+                                Year 3
+                            </option>
+
+                            <option value="Year 4">
+                                Year 4
+                            </option>
+
+                            <option value="Year 5">
+                                Year 5
+                            </option>
+
+                            <option value="Postgraduate">
+                                Postgraduate
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     ACADEMIC INFORMATION
+                ========================== -->
+
+                <h2
+                    class="profile-section-title"
+                    style="margin-top: 35px;"
+                >
+                    Academic Information
+                </h2>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="department">
+                            Department *
+                        </label>
+
+                        <select
+                            id="department"
+                            name="department"
+                            required
+                        >
+
+                            <option value="">
+                                Select Department
+                            </option>
+
+                            <option value="Mathematics & Computer Science">
+                                Mathematics & Computer Science
+                            </option>
+
+                            <option value="Biological Sciences">
+                                Biological Sciences
+                            </option>
+
+                            <option value="Chemistry & Biochemistry">
+                                Chemistry & Biochemistry
+                            </option>
+
+                            <option value="Physics">
+                                Physics
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="course">
+                            Course / Programme *
+                        </label>
+
+                        <select
+                            id="course"
+                            name="course"
+                            required
+                            disabled
+                        >
+
+                            <option value="">
+                                Select Department First
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     CONTACT INFORMATION
+                ========================== -->
+
+                <h2
+                    class="profile-section-title"
+                    style="margin-top: 35px;"
+                >
+                    Contact Information
+                </h2>
+
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="phoneNumber">
+                            Phone Number *
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="e.g. 0712345678"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address *
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="example@gmail.com"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     SUBMIT
+                ========================== -->
+
+                <div class="submit-area">
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                        id="submitProfileBtn"
+                    >
+                        Create My Profile
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="profileMessage"
+                    class="profile-message"
+                ></div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer class="site-footer">
+
+    <div class="container">
+
+        <p>
+
+            &copy;
+            <span id="year"></span>
+
+            School of Science Students Association —
+            University of Eldoret.
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<!-- Supabase Library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Existing SSSA Supabase Connection -->
+<script src="js/supabase.js"></script>
+
+<!-- Student Profile System -->
+<script src="js/student-profile.js"></script>
+
+</body></html>

@@ -188,3 +188,92 @@ document.addEventListener(
 
     }
 );
+
+// ==========================================
+// LOAD SSSA DEPARTMENTS FROM SUPABASE
+// ==========================================
+
+async function loadDepartments() {
+
+    const container = document.getElementById("departments-container");
+
+    // Only run on the departments page
+    if (!container) return;
+
+    try {
+
+        const { data, error } = await supabase
+            .from("departments")
+            .select("*")
+            .order("display_order", { ascending: true });
+
+        if (error) {
+            console.error("Error loading departments:", error);
+
+            container.innerHTML = `
+                <p class="error-message">
+                    Unable to load departments. Please try again later.
+                </p>
+            `;
+
+            return;
+        }
+
+        if (!data || data.length === 0) {
+
+            container.innerHTML = `
+                <p class="empty-message">
+                    No departments available at the moment.
+                </p>
+            `;
+
+            return;
+        }
+
+        container.innerHTML = "";
+
+        data.forEach((department) => {
+
+            const card = document.createElement("div");
+
+            card.className = "department-card";
+
+            card.innerHTML = `
+                <div class="department-icon">
+                    ${department.icon || "📚"}
+                </div>
+
+                <div class="department-number">
+                    Department ${department.display_order}
+                </div>
+
+                <h3>${department.name}</h3>
+
+                <p>
+                    ${department.description || ""}
+                </p>
+
+                <a href="#" class="department-link">
+                    Explore Department →
+                </a>
+            `;
+
+            container.appendChild(card);
+
+        });
+
+    } catch (error) {
+
+        console.error("Unexpected error:", error);
+
+        container.innerHTML = `
+            <p class="error-message">
+                Something went wrong while loading departments.
+            </p>
+        `;
+    }
+}
+
+
+// Run when page loads
+document.addEventListener("DOMContentLoaded", loadDepartments);
