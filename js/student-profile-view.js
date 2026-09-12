@@ -1,14 +1,38 @@
-const profileResult = document.getElementById("profileResult");
-const profileMessage = document.getElementById("profileMessage");
-const loadingMessage = document.getElementById("loadingMessage");
+/* ==========================================
+   SSSA STUDENT PROFILE VIEW
+   University of Eldoret
+========================================== */
 
-const editProfileBtn = document.getElementById("editProfileBtn");
-const editProfileForm = document.getElementById("editProfileForm");
-const cancelEditBtn = document.getElementById("cancelEditBtn");
-const logoutBtn = document.getElementById("logoutBtn");
 
-const editDepartment = document.getElementById("editDepartment");
-const editCourse = document.getElementById("editCourse");
+const profileResult =
+    document.getElementById("profileResult");
+
+const profileMessage =
+    document.getElementById("profileMessage");
+
+const loadingMessage =
+    document.getElementById("loadingMessage");
+
+
+const editProfileBtn =
+    document.getElementById("editProfileBtn");
+
+const editProfileForm =
+    document.getElementById("editProfileForm");
+
+const cancelEditBtn =
+    document.getElementById("cancelEditBtn");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+const editDepartment =
+    document.getElementById("editDepartment");
+
+const editCourse =
+    document.getElementById("editCourse");
+
 
 let currentProfile = null;
 
@@ -47,6 +71,7 @@ const studentCourses = {
     "Physics": [
         "Physics"
     ]
+
 };
 
 
@@ -58,12 +83,14 @@ function showMessage(message, type) {
 
     if (!profileMessage) return;
 
-    profileMessage.textContent = message;
+    profileMessage.textContent =
+        message;
 
     profileMessage.className =
         "profile-message " + type;
 
-    profileMessage.style.display = "block";
+    profileMessage.style.display =
+        "block";
 }
 
 
@@ -71,7 +98,8 @@ function hideMessage() {
 
     if (!profileMessage) return;
 
-    profileMessage.style.display = "none";
+    profileMessage.style.display =
+        "none";
 }
 
 
@@ -79,29 +107,48 @@ function hideMessage() {
    LOAD COURSES
 ========================= */
 
-function loadCourses(department, selectedCourse = "") {
+function loadCourses(
+    department,
+    selectedCourse = ""
+) {
 
     if (!editCourse) return;
+
 
     editCourse.innerHTML =
         '<option value="">Select Course</option>';
 
-    const courses = studentCourses[department] || [];
+
+    const courses =
+        studentCourses[department] || [];
+
 
     courses.forEach(function(course) {
 
         const option =
             document.createElement("option");
 
-        option.value = course;
-        option.textContent = course;
+
+        option.value =
+            course;
+
+        option.textContent =
+            course;
+
 
         if (course === selectedCourse) {
-            option.selected = true;
+
+            option.selected =
+                true;
         }
 
-        editCourse.appendChild(option);
+
+        editCourse.appendChild(
+            option
+        );
+
     });
+
 }
 
 
@@ -111,92 +158,155 @@ function loadCourses(department, selectedCourse = "") {
 
 function displayProfile(data) {
 
-    currentProfile = data;
+    currentProfile =
+        data;
 
-    document.getElementById("studentName").textContent =
+
+    document.getElementById(
+        "studentName"
+    ).textContent =
         data.full_name;
 
-    document.getElementById("studentAdmission").textContent =
+
+    document.getElementById(
+        "studentAdmission"
+    ).textContent =
         data.admission_number;
 
-    document.getElementById("detailName").textContent =
+
+    document.getElementById(
+        "detailName"
+    ).textContent =
         data.full_name;
 
-    document.getElementById("detailAdmission").textContent =
+
+    document.getElementById(
+        "detailAdmission"
+    ).textContent =
         data.admission_number;
 
-    document.getElementById("detailDepartment").textContent =
+
+    document.getElementById(
+        "detailDepartment"
+    ).textContent =
         data.department;
 
-    document.getElementById("detailCourse").textContent =
+
+    document.getElementById(
+        "detailCourse"
+    ).textContent =
         data.course;
 
-    document.getElementById("detailYear").textContent =
+
+    document.getElementById(
+        "detailYear"
+    ).textContent =
         data.year_of_study;
 
-    document.getElementById("detailPhone").textContent =
+
+    document.getElementById(
+        "detailPhone"
+    ).textContent =
         data.phone_number;
 
-    document.getElementById("detailEmail").textContent =
+
+    document.getElementById(
+        "detailEmail"
+    ).textContent =
         data.email;
 
 
-    /* PROFILE PHOTO */
+    /* =========================
+       PROFILE PHOTO
+    ========================= */
 
     const photo =
-        document.getElementById("profilePhoto");
+        document.getElementById(
+            "profilePhoto"
+        );
+
 
     const placeholder =
-        document.getElementById("photoPlaceholder");
+        document.getElementById(
+            "photoPlaceholder"
+        );
+
 
     if (data.profile_photo_url) {
 
-        photo.src = data.profile_photo_url;
+        photo.src =
+            data.profile_photo_url;
 
-        photo.style.display = "block";
+        photo.style.display =
+            "block";
 
-        placeholder.style.display = "none";
+        placeholder.style.display =
+            "none";
 
     } else {
 
-        photo.style.display = "none";
+        photo.style.display =
+            "none";
 
-        placeholder.style.display = "flex";
+        placeholder.style.display =
+            "flex";
+
 
         const firstLetter =
             data.full_name
-                ? data.full_name.charAt(0).toUpperCase()
+                ? data.full_name
+                    .charAt(0)
+                    .toUpperCase()
                 : "S";
 
-        placeholder.textContent = firstLetter;
+
+        placeholder.textContent =
+            firstLetter;
     }
 
 
-    /* EDIT FORM */
+    /* =========================
+       EDIT FORM
+    ========================= */
 
-    document.getElementById("editFullName").value =
+    document.getElementById(
+        "editFullName"
+    ).value =
         data.full_name || "";
 
-    document.getElementById("editPhone").value =
+
+    document.getElementById(
+        "editPhone"
+    ).value =
         data.phone_number || "";
+
 
     editDepartment.value =
         data.department || "";
+
 
     loadCourses(
         data.department,
         data.course
     );
 
-    document.getElementById("editYear").value =
+
+    document.getElementById(
+        "editYear"
+    ).value =
         data.year_of_study || "";
 
 
-    profileResult.style.display = "block";
+    profileResult.style.display =
+        "block";
+
 
     if (loadingMessage) {
-        loadingMessage.style.display = "none";
+
+        loadingMessage.style.display =
+            "none";
     }
+
 }
 
 
@@ -208,7 +318,18 @@ async function loadMyProfile() {
 
     hideMessage();
 
-    if (typeof supabaseClient === "undefined") {
+
+    if (loadingMessage) {
+
+        loadingMessage.style.display =
+            "block";
+    }
+
+
+    if (
+        typeof supabaseClient ===
+        "undefined"
+    ) {
 
         showMessage(
             "Supabase connection is not available.",
@@ -221,47 +342,128 @@ async function loadMyProfile() {
 
     try {
 
+        /* =========================
+           WAIT FOR AUTH SESSION
+        ========================= */
+
         const {
-            data: { user },
-            error: authError
-        } = await supabaseClient.auth.getUser();
+            data: sessionData,
+            error: sessionError
+        } =
+            await supabaseClient.auth.getSession();
 
 
-        if (authError) {
-            throw authError;
+        if (sessionError) {
+            throw sessionError;
         }
 
 
-        /* NOT LOGGED IN */
+        let session =
+            sessionData
+                ? sessionData.session
+                : null;
 
-        if (!user) {
+
+        /* =========================
+           FALLBACK TO getUser()
+        ========================= */
+
+        if (!session) {
+
+            const {
+                data: userData,
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            if (userError) {
+
+                console.error(
+                    "getUser error:",
+                    userError
+                );
+
+            } else if (
+                userData &&
+                userData.user
+            ) {
+
+                /*
+                   A user exists even if the
+                   local session is still being
+                   restored.
+                */
+
+                session = {
+                    user: userData.user
+                };
+
+            }
+        }
+
+
+        /* =========================
+           NO AUTHENTICATION
+        ========================= */
+
+        if (
+            !session ||
+            !session.user
+        ) {
+
+            if (loadingMessage) {
+
+                loadingMessage.style.display =
+                    "none";
+            }
+
 
             showMessage(
-                "You must be logged in to view your student profile.",
+                "Your login session could not be found. Please login again.",
                 "error"
             );
 
+
             setTimeout(function() {
 
-                window.location.href =
-                    "student-login.html";
+                window.location.replace(
+                    "student-login.html"
+                );
 
-            }, 1500);
+            }, 1800);
+
 
             return;
         }
 
 
-        /* GET ONLY THE LOGGED-IN STUDENT */
+        const user =
+            session.user;
+
+
+        console.log(
+            "Authenticated student:",
+            user.id
+        );
+
+
+        /* =========================
+           LOAD OWN PROFILE
+        ========================= */
 
         const {
             data,
             error
-        } = await supabaseClient
-            .from("student_profiles")
-            .select("*")
-            .eq("user_id", user.id)
-            .maybeSingle();
+        } =
+            await supabaseClient
+                .from("student_profiles")
+                .select("*")
+                .eq(
+                    "user_id",
+                    user.id
+                )
+                .maybeSingle();
 
 
         if (error) {
@@ -269,20 +471,32 @@ async function loadMyProfile() {
         }
 
 
+        /* =========================
+           PROFILE NOT FOUND
+        ========================= */
+
         if (!data) {
 
             if (loadingMessage) {
-                loadingMessage.style.display = "none";
+
+                loadingMessage.style.display =
+                    "none";
             }
 
+
             showMessage(
-                "Your student profile could not be found. Please contact SSSA administration.",
+                "Your account is authenticated, but your student profile is not linked to this account. Please contact SSSA administration.",
                 "error"
             );
+
 
             return;
         }
 
+
+        /* =========================
+           DISPLAY
+        ========================= */
 
         displayProfile(data);
 
@@ -299,16 +513,22 @@ async function loadMyProfile() {
             error
         );
 
+
         if (loadingMessage) {
-            loadingMessage.style.display = "none";
+
+            loadingMessage.style.display =
+                "none";
         }
+
 
         showMessage(
             error.message ||
             "Unable to load your student profile.",
             "error"
         );
+
     }
+
 }
 
 
@@ -325,15 +545,19 @@ if (editProfileBtn) {
             editProfileForm.style.display =
                 "block";
 
+
             editProfileBtn.style.display =
                 "none";
+
 
             editProfileForm.scrollIntoView({
                 behavior: "smooth",
                 block: "start"
             });
+
         }
     );
+
 }
 
 
@@ -350,14 +574,22 @@ if (cancelEditBtn) {
             editProfileForm.style.display =
                 "none";
 
+
             editProfileBtn.style.display =
                 "inline-block";
 
+
             if (currentProfile) {
-                displayProfile(currentProfile);
+
+                displayProfile(
+                    currentProfile
+                );
+
             }
+
         }
     );
+
 }
 
 
@@ -374,8 +606,10 @@ if (editDepartment) {
             loadCourses(
                 editDepartment.value
             );
+
         }
     );
+
 }
 
 
@@ -391,20 +625,30 @@ if (editProfileForm) {
 
             event.preventDefault();
 
+
             try {
 
+                /* =========================
+                   GET CURRENT SESSION
+                ========================= */
+
                 const {
-                    data: { user },
-                    error: authError
-                } = await supabaseClient.auth.getUser();
+                    data: sessionData,
+                    error: sessionError
+                } =
+                    await supabaseClient.auth.getSession();
 
 
-                if (authError) {
-                    throw authError;
+                if (sessionError) {
+                    throw sessionError;
                 }
 
 
-                if (!user) {
+                if (
+                    !sessionData ||
+                    !sessionData.session ||
+                    !sessionData.session.user
+                ) {
 
                     showMessage(
                         "Your session has expired. Please login again.",
@@ -415,28 +659,38 @@ if (editProfileForm) {
                 }
 
 
+                const user =
+                    sessionData.session.user;
+
+
+                /* =========================
+                   FORM VALUES
+                ========================= */
+
                 const fullName =
-                    document
-                        .getElementById("editFullName")
-                        .value
-                        .trim();
+                    document.getElementById(
+                        "editFullName"
+                    ).value.trim();
+
 
                 const phone =
-                    document
-                        .getElementById("editPhone")
-                        .value
-                        .trim();
+                    document.getElementById(
+                        "editPhone"
+                    ).value.trim();
+
 
                 const department =
                     editDepartment.value;
 
+
                 const course =
                     editCourse.value;
 
+
                 const year =
-                    document
-                        .getElementById("editYear")
-                        .value;
+                    document.getElementById(
+                        "editYear"
+                    ).value;
 
 
                 if (
@@ -461,36 +715,53 @@ if (editProfileForm) {
                         ".save-btn"
                     );
 
-                saveButton.disabled = true;
+
+                saveButton.disabled =
+                    true;
+
 
                 saveButton.textContent =
                     "Saving...";
 
 
+                /* =========================
+                   UPDATE OWN PROFILE
+                ========================= */
+
                 const {
                     data,
                     error
-                } = await supabaseClient
-                    .from("student_profiles")
-                    .update({
+                } =
+                    await supabaseClient
+                        .from("student_profiles")
+                        .update({
 
-                        full_name: fullName,
+                            full_name:
+                                fullName,
 
-                        phone_number: phone,
+                            phone_number:
+                                phone,
 
-                        department: department,
+                            department:
+                                department,
 
-                        course: course,
+                            course:
+                                course,
 
-                        year_of_study: year,
+                            year_of_study:
+                                year,
 
-                        updated_at:
-                            new Date().toISOString()
+                            updated_at:
+                                new Date()
+                                    .toISOString()
 
-                    })
-                    .eq("user_id", user.id)
-                    .select()
-                    .single();
+                        })
+                        .eq(
+                            "user_id",
+                            user.id
+                        )
+                        .select()
+                        .single();
 
 
                 if (error) {
@@ -498,13 +769,18 @@ if (editProfileForm) {
                 }
 
 
-                currentProfile = data;
+                currentProfile =
+                    data;
 
-                displayProfile(data);
+
+                displayProfile(
+                    data
+                );
 
 
                 editProfileForm.style.display =
                     "none";
+
 
                 editProfileBtn.style.display =
                     "inline-block";
@@ -516,7 +792,9 @@ if (editProfileForm) {
                 );
 
 
-                saveButton.disabled = false;
+                saveButton.disabled =
+                    false;
+
 
                 saveButton.textContent =
                     "💾 Save Changes";
@@ -528,24 +806,31 @@ if (editProfileForm) {
                     error
                 );
 
+
                 showMessage(
                     error.message ||
                     "Unable to update your profile.",
                     "error"
                 );
 
+
                 const saveButton =
                     editProfileForm.querySelector(
                         ".save-btn"
                     );
 
-                saveButton.disabled = false;
+
+                saveButton.disabled =
+                    false;
+
 
                 saveButton.textContent =
                     "💾 Save Changes";
             }
+
         }
     );
+
 }
 
 
@@ -564,6 +849,7 @@ if (logoutBtn) {
                     "Are you sure you want to logout?"
                 );
 
+
             if (!confirmed) return;
 
 
@@ -580,8 +866,9 @@ if (logoutBtn) {
                 }
 
 
-                window.location.href =
-                    "student-login.html";
+                window.location.replace(
+                    "student-login.html"
+                );
 
             } catch (error) {
 
@@ -590,13 +877,17 @@ if (logoutBtn) {
                     error
                 );
 
+
                 showMessage(
                     "Unable to logout. Please try again.",
                     "error"
                 );
+
             }
+
         }
     );
+
 }
 
 
@@ -606,5 +897,9 @@ if (logoutBtn) {
 
 document.addEventListener(
     "DOMContentLoaded",
-    loadMyProfile
+    function() {
+
+        loadMyProfile();
+
+    }
 );
